@@ -31,6 +31,8 @@ public abstract class GridTileItem
 {
 
     [Tooltip("0 = not walkable\nHigher number equals faster")]
-    public int walkSpeed = 0;
+    public int WalkSpeed = 0;
+    [Tooltip("The prefab shown on the tile")]
+    public GameObject ItemPrefab;
 
 }
