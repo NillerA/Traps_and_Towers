@@ -47,4 +47,20 @@ public class WorldGrid : MonoBehaviour
         else
             return new Vector3(x * 1, 0, y * 0.75f);
     }
+
+    public bool PlaceTileItem(int x, int y, GridTileItem item)
+    {
+        if(grid.Tiles[x, y] == null)
+        {
+            grid.Tiles[x,y].GridTileItem = item;
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public void SetTileType(int x, int y, GridTile.TileTypes tileType)
+    {
+        grid.Tiles[x, y].TileType = tileType;
+    }
 }

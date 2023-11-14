@@ -460,7 +460,7 @@ MonoBehaviour:
     type: 3}
   WaterTilePrefab: {fileID: 7414593100213077514, guid: 3b84d4b44de44d248b9e37cf6fb72d2f,
     type: 3}
-  map: {fileID: 11400000, guid: f52b032e826836646b88bb87ce6b3f9d, type: 2}
+  map: {fileID: 0}
 --- !u!4 &2044371828
 Transform:
   m_ObjectHideFlags: 0
