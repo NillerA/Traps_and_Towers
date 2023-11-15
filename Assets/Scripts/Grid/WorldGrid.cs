@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class WorldGrid : MonoBehaviour
 {
+    public Color startColor;
+    public Color hoverColor;
+    public Renderer rend;
 
     private Grid grid = new Grid();
     private GameObject[,] visualTiles = new GameObject[0,0];
@@ -17,6 +20,21 @@ public class WorldGrid : MonoBehaviour
     [SerializeField, Range(1,100)]
     private int xAmount, yAmount;
 
+    private void Start()
+    {
+        rend = GetComponent<Renderer>();
+        startColor = rend.material.color;
+    }
+    private void OnMouseEnter()
+    {
+        rend.material.color = hoverColor;
+        
+    }
+    private void OnMouseExit()
+    {
+        rend.material.color = startColor;
+        
+    }
     public void OnValidate()
     {
         if(map != null)
