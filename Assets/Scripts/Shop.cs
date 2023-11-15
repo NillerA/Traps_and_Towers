@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    private MousePosition3D mousePosition;
     public void PurchaseRangedTurret()
     {
         Debug.Log("Ranged Turret Purchaed");
