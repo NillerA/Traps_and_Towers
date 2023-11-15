@@ -16,6 +16,7 @@ public abstract class TowerAbstractAttack
 
 }
 
+// du kan lave så mange attack varianter som du har loest
 
 
 public class ArcherTowerAttack : TowerAbstractAttack
