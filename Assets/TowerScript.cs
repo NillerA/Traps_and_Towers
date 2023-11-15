@@ -11,10 +11,13 @@ public class TowerScript : MonoBehaviour
     [Range(0,100)]
     public float fireRate = 1f;
 
+    //bulletprefab er en objekt jeg gører brug af fordi jeg ikke har bullets
     public GameObject bulletPrefab;
     public Transform firePoint;
 
     private float fireCountdown = 0f;
+
+    public TowerData towerData;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +67,18 @@ public class TowerScript : MonoBehaviour
     {
         Debug.Log("Shoot");
 
-        //Instantiate(bulletPrefab, firePoint.position);
+        GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        BulletScript bullet = bulletGO.GetComponent<BulletScript>();
+
+        if (bullet != null)
+        {
+            bullet.Seek(target);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }
