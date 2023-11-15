@@ -8,7 +8,9 @@ public class WorldGrid : MonoBehaviour
 
     [SerializeField]
     private Grid grid = new Grid();
+    [SerializeField, HideInInspector]
     private GameObject[,] visualTiles = new GameObject[0,0];
+    [SerializeField, HideInInspector]
     private GameObject tileHolder;
 
     [SerializeField]
@@ -31,7 +33,7 @@ public class WorldGrid : MonoBehaviour
             {
                 for (int y = 0; y < newTiles.GetLength(1); y++)
                 {
-                    if(grid.Tiles.GetLength(0) > x && grid.Tiles.GetLength(1) > y)
+                    if(grid.Tiles.GetLength(0) > x && grid.Tiles.GetLength(1) > y && grid.Tiles[x,y] != null)
                         newTiles[x,y] = grid.Tiles[x,y];
                     else
                         newTiles[x,y] = new GridTile();
