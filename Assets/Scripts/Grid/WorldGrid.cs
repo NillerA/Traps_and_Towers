@@ -86,6 +86,20 @@ public class WorldGrid : MonoBehaviour
             return new Vector3(x * 1, 0, y * 0.75f);
     }
 
+    public (int x, int y) WorldToGrid(Vector3 worldCoord)
+    {
+        float worldX = worldCoord.x;
+        float worldY = worldCoord.z;
+        int gridxFast;
+        int gridYFast;
+        worldY /= 0.75f;
+        gridYFast = (int)worldY;
+        if (gridYFast % 2 == 0)
+            worldY -= 0.5f;
+        gridxFast = (int)worldX;
+        return (gridxFast, gridYFast);
+    }
+
     public bool PlaceTileItem(int x, int y, GridTileItem item)
     {
         if(grid.Tiles[x, y] == null)
@@ -100,5 +114,25 @@ public class WorldGrid : MonoBehaviour
     public void SetTileType(int x, int y, GridTile.TileTypes tileType)
     {
         grid.Tiles[x, y].TileType = tileType;
+    }
+
+    public GridTile GetTile(int x, int y)
+    {
+        return grid.Tiles[x, y];
+    }
+
+    public GameObject GetTileVisual(int x, int y)
+    {
+        return visualTiles[x, y];
+    }
+
+    public int GetXGridSize()
+    {
+        return grid.Tiles.GetLength(0);
+    }
+
+    public int GetYGridSize()
+    {
+        return grid.Tiles.GetLength(1);
     }
 }
