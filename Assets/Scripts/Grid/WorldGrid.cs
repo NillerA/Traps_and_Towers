@@ -12,7 +12,7 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
     [SerializeField]
     private Grid grid;
     [SerializeField, HideInInspector]
-    private GameObject[,] gridTiles = new GameObject[0,0];
+    private GameObject[,] visualTiles = new GameObject[0,0];
     [SerializeField, HideInInspector]
     private GameObject tileHolder;
 
@@ -60,20 +60,20 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
                 };
             }
         }
-        gridTiles = new GameObject[grid.Tiles.GetLength(0), grid.Tiles.GetLength(1)];
+        visualTiles = new GameObject[grid.Tiles.GetLength(0), grid.Tiles.GetLength(1)];
         for (int x = 0; x < grid.Tiles.GetLength(0); x++)
         {
             for (int y = 0; y < grid.Tiles.GetLength(1); y++)
             {
-                gridTiles[x,y] = Instantiate(grassTilePrefab, GridToWorld(x, y), Quaternion.identity, tileHolder.transform);
-                gridTiles[x, y].name = x.ToString() + "," + y.ToString();
+                visualTiles[x,y] = Instantiate(grassTilePrefab, GridToWorld(x, y), Quaternion.identity, tileHolder.transform);
+                visualTiles[x, y].name = x.ToString() + "," + y.ToString();
                 if (grid.Tiles[x,y].GridTileItem != null)
                 {
-                    Instantiate(grid.Tiles[x, y].GridTileItem.ItemPrefab, GridToWorld(x, y), Quaternion.identity, gridTiles[x, y].transform);
+                    Instantiate(grid.Tiles[x, y].GridTileItem.ItemPrefab, GridToWorld(x, y), Quaternion.identity, visualTiles[x, y].transform);
                 }
-                else if(gridTiles[x, y].transform.childCount > 1)
+                else if(visualTiles[x, y].transform.childCount > 1)
                 {
-                        DestroyImmediate(gridTiles[x, y].transform.GetChild(1).gameObject);
+                        DestroyImmediate(visualTiles[x, y].transform.GetChild(1).gameObject);
                 }
             }
         }
@@ -103,10 +103,10 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
 
     public bool PlaceTileItem(int x, int y, GridTileItem item)
     {
-        if(x > 0 && x < GetXGridSize() && y > 0 && y < GetYGridSize() && grid.Tiles[x, y] == null)
+        if(x > 0 && x < GetXGridSize() && y > 0 && y < GetYGridSize() && grid.Tiles[x, y].GridTileItem == null)
         {
             grid.Tiles[x,y].GridTileItem = item;
-            Instantiate(item.ItemPrefab);
+            Instantiate(item.ItemPrefab, visualTiles[x,y].transform.position, visualTiles[x,y].transform.rotation, visualTiles[x,y].transform);
             return true;
         }
         else
@@ -125,8 +125,8 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
 
     public GameObject GetVisualTile(int x, int y)
     {
-        Debug.Log(gridTiles.GetLength(0) + ", " + gridTiles.GetLength(1));
-        return gridTiles[x, y];
+        Debug.Log(visualTiles.GetLength(0) + ", " + visualTiles.GetLength(1));
+        return visualTiles[x, y];
     }
 
     public int GetXGridSize()
@@ -148,25 +148,25 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
 
     public void OnAfterDeserialize()
     {
-        gridTiles = new GameObject[serializedXAmount, serializedTiles.Count() / serializedXAmount];
-        for (int x = 0; x < gridTiles.GetLength(0); ++x)
+        visualTiles = new GameObject[serializedXAmount, serializedTiles.Count() / serializedXAmount];
+        for (int x = 0; x < visualTiles.GetLength(0); ++x)
         {
-            for (int y = 0; y < gridTiles.GetLength(1); y++)
+            for (int y = 0; y < visualTiles.GetLength(1); y++)
             {
-                gridTiles[x, y] = serializedTiles[x * gridTiles.GetLength(0) + y];
+                visualTiles[x, y] = serializedTiles[x * visualTiles.GetLength(0) + y];
             }
         }
     }
 
     public void OnBeforeSerialize()
     {
-        serializedTiles = new GameObject[gridTiles.Length];
-        serializedXAmount = gridTiles.GetLength(0);
-        for (int x = 0; x < gridTiles.GetLength(0); ++x)
+        serializedTiles = new GameObject[visualTiles.Length];
+        serializedXAmount = visualTiles.GetLength(0);
+        for (int x = 0; x < visualTiles.GetLength(0); ++x)
         {
-            for (int y = 0; y < gridTiles.GetLength(1); y++)
+            for (int y = 0; y < visualTiles.GetLength(1); y++)
             {
-                serializedTiles[x * gridTiles.GetLength(0) + y] = gridTiles[x, y];
+                serializedTiles[x * visualTiles.GetLength(0) + y] = visualTiles[x, y];
             }
         }
     }
