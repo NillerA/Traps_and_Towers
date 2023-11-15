@@ -102,15 +102,4 @@ public class WorldGrid : MonoBehaviour
     {
         grid.Tiles[x, y].TileType = tileType;
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    for (int x = 0; x < grid.Tiles.GetLength(0); x++)
-    //    {
-    //        for (int y = 0; y < grid.Tiles.GetLength(1); y++)
-    //        {
-    //            Gizmos.DrawMesh(exampleTile, GridToWorld(x, y),Quaternion.Euler(-90, 0, 0));
-    //        }
-    //    }
-    //}
 }
