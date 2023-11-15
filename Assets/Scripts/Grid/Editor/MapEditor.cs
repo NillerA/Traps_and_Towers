@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.EditorTools;
 
-public class MapEditor : MonoBehaviour
+[EditorTool("TerrainModification", typeof(WorldGrid))]
+public class MapEditor : EditorTool
 {
 
     //WorldGrid worldGrid;

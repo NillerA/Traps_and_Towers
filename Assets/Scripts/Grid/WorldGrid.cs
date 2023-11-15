@@ -1,41 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class WorldGrid : MonoBehaviour
 {
-    public Color startColor;
-    public Color hoverColor;
-    public Renderer rend;
 
+    [SerializeField]
     private Grid grid = new Grid();
+    [SerializeField, HideInInspector]
     private GameObject[,] visualTiles = new GameObject[0,0];
+    [SerializeField, HideInInspector]
     private GameObject tileHolder;
 
     [SerializeField]
-    private GameObject GrassTilePrefab, WaterTilePrefab;
+    private GameObject grassTilePrefab, waterTilePrefab;
     [SerializeField]
     public Map map;
-    [SerializeField, Range(1,100)]
+    [SerializeField, Range(0,100)]
     private int xAmount, yAmount;
 
-    private void Start()
-    {
-        rend = GetComponent<Renderer>();
-        startColor = rend.material.color;
-    }
-    private void OnMouseEnter()
-    {
-        rend.material.color = hoverColor;
-        
-    }
-    private void OnMouseExit()
-    {
-        rend.material.color = startColor;
-        
-    }
-    public void OnValidate()
+    public void Generate()
     {
         if(map != null)
         {
@@ -43,7 +30,24 @@ public class WorldGrid : MonoBehaviour
         }
         else
         {
-            grid.Tiles = new GridTile[xAmount,yAmount];
+            GridTile[,] newTiles = new GridTile[xAmount, yAmount];
+            for(int x = 0; x < newTiles.GetLength(0); x++)
+            {
+                for (int y = 0; y < newTiles.GetLength(1); y++)
+                {
+                    if(grid.Tiles != null && grid.Tiles.GetLength(0) > x && grid.Tiles.GetLength(1) > y && grid.Tiles[x,y] != null)
+                        newTiles[x,y] = grid.Tiles[x,y];
+                    else
+                        newTiles[x,y] = new GridTile();
+                }
+            }
+            grid.Tiles = newTiles;
+        }
+
+        if (tileHolder == null)
+        {
+            tileHolder = new GameObject();
+            tileHolder.name = "Grid";
         }
         foreach(Transform tile in tileHolder.transform)
         {
@@ -56,18 +60,20 @@ public class WorldGrid : MonoBehaviour
             }
         }
         visualTiles = new GameObject[grid.Tiles.GetLength(0), grid.Tiles.GetLength(1)];
-
-        if (tileHolder == null)
-        {
-            tileHolder = new GameObject();
-            tileHolder.name = "Grid";
-        }
         for (int x = 0; x < grid.Tiles.GetLength(0); x++)
         {
             for (int y = 0; y < grid.Tiles.GetLength(1); y++)
             {
-                visualTiles[x,y] = Instantiate(GrassTilePrefab, GridToWorld(x, y), Quaternion.identity, tileHolder.transform);
+                visualTiles[x,y] = Instantiate(grassTilePrefab, GridToWorld(x, y), Quaternion.identity, tileHolder.transform);
                 visualTiles[x, y].name = x.ToString() + "," + y.ToString();
+                if (grid.Tiles[x,y].GridTileItem != null)
+                {
+                    Instantiate(grid.Tiles[x, y].GridTileItem.ItemPrefab, GridToWorld(x, y), Quaternion.identity, visualTiles[x, y].transform);
+                }
+                else if(visualTiles[x, y].transform.childCount > 1)
+                {
+                        DestroyImmediate(visualTiles[x, y].transform.GetChild(1).gameObject);
+                }
             }
         }
     }
@@ -95,15 +101,4 @@ public class WorldGrid : MonoBehaviour
     {
         grid.Tiles[x, y].TileType = tileType;
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    for (int x = 0; x < grid.Tiles.GetLength(0); x++)
-    //    {
-    //        for (int y = 0; y < grid.Tiles.GetLength(1); y++)
-    //        {
-    //            Gizmos.DrawMesh(exampleTile, GridToWorld(x, y),Quaternion.Euler(-90, 0, 0));
-    //        }
-    //    }
-    //}
 }
