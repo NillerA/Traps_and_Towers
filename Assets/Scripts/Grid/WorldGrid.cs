@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class WorldGrid : MonoBehaviour
 {
@@ -14,13 +16,13 @@ public class WorldGrid : MonoBehaviour
     private GameObject tileHolder;
 
     [SerializeField]
-    private GameObject GrassTilePrefab, WaterTilePrefab;
+    private GameObject grassTilePrefab, waterTilePrefab;
     [SerializeField]
     public Map map;
     [SerializeField, Range(0,100)]
     private int xAmount, yAmount;
 
-    public void OnValidate()
+    public void Generate()
     {
         if(map != null)
         {
@@ -33,7 +35,7 @@ public class WorldGrid : MonoBehaviour
             {
                 for (int y = 0; y < newTiles.GetLength(1); y++)
                 {
-                    if(grid.Tiles.GetLength(0) > x && grid.Tiles.GetLength(1) > y && grid.Tiles[x,y] != null)
+                    if(grid.Tiles != null && grid.Tiles.GetLength(0) > x && grid.Tiles.GetLength(1) > y && grid.Tiles[x,y] != null)
                         newTiles[x,y] = grid.Tiles[x,y];
                     else
                         newTiles[x,y] = new GridTile();
@@ -62,7 +64,7 @@ public class WorldGrid : MonoBehaviour
         {
             for (int y = 0; y < grid.Tiles.GetLength(1); y++)
             {
-                visualTiles[x,y] = Instantiate(GrassTilePrefab, GridToWorld(x, y), Quaternion.identity, tileHolder.transform);
+                visualTiles[x,y] = Instantiate(grassTilePrefab, GridToWorld(x, y), Quaternion.identity, tileHolder.transform);
                 visualTiles[x, y].name = x.ToString() + "," + y.ToString();
                 if (grid.Tiles[x,y].GridTileItem != null)
                 {
@@ -70,10 +72,7 @@ public class WorldGrid : MonoBehaviour
                 }
                 else if(visualTiles[x, y].transform.childCount > 1)
                 {
-                    UnityEditor.EditorApplication.delayCall += () =>
-                    {
                         DestroyImmediate(visualTiles[x, y].transform.GetChild(1).gameObject);
-                    };
                 }
             }
         }

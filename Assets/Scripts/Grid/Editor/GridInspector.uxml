@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Label tabindex="-1" text="Grid Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+    <ui:Foldout text="Tile Prefabs">
+        <uie:PropertyField label="Grass Tile Prefab" binding-path="grassTilePrefab" />
+        <uie:PropertyField label="Water Tile Prefab" binding-path="waterTilePrefab" />
+    </ui:Foldout>
+    <ui:Foldout text="Grid Settings" value="true">
+        <ui:SliderInt picking-mode="Ignore" label="Tile Amount X" value="10" high-value="100" binding-path="xAmount" show-input-field="true" />
+        <ui:SliderInt picking-mode="Ignore" label="Tile Amount Y" value="10" high-value="100" binding-path="yAmount" show-input-field="true" />
+        <uie:PropertyField label="Map" binding-path="map" tooltip="use map istead of generated data" />
+        <ui:Button text="Generate Visuals" parse-escape-sequences="true" display-tooltip-when-elided="true" binding-path="generate" name="Generate" />
+    </ui:Foldout>
+</ui:UXML>
