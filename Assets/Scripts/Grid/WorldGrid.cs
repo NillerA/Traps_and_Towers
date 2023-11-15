@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class WorldGrid : MonoBehaviour
+public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
 {
 
     [SerializeField]
-    private Grid grid = new Grid();
+    private Grid grid;
     [SerializeField, HideInInspector]
-    private GameObject[,] visualTiles = new GameObject[0,0];
+    private GameObject[,] gridTiles = new GameObject[0,0];
     [SerializeField, HideInInspector]
     private GameObject tileHolder;
 
@@ -59,20 +60,20 @@ public class WorldGrid : MonoBehaviour
                 };
             }
         }
-        visualTiles = new GameObject[grid.Tiles.GetLength(0), grid.Tiles.GetLength(1)];
+        gridTiles = new GameObject[grid.Tiles.GetLength(0), grid.Tiles.GetLength(1)];
         for (int x = 0; x < grid.Tiles.GetLength(0); x++)
         {
             for (int y = 0; y < grid.Tiles.GetLength(1); y++)
             {
-                visualTiles[x,y] = Instantiate(grassTilePrefab, GridToWorld(x, y), Quaternion.identity, tileHolder.transform);
-                visualTiles[x, y].name = x.ToString() + "," + y.ToString();
+                gridTiles[x,y] = Instantiate(grassTilePrefab, GridToWorld(x, y), Quaternion.identity, tileHolder.transform);
+                gridTiles[x, y].name = x.ToString() + "," + y.ToString();
                 if (grid.Tiles[x,y].GridTileItem != null)
                 {
-                    Instantiate(grid.Tiles[x, y].GridTileItem.ItemPrefab, GridToWorld(x, y), Quaternion.identity, visualTiles[x, y].transform);
+                    Instantiate(grid.Tiles[x, y].GridTileItem.ItemPrefab, GridToWorld(x, y), Quaternion.identity, gridTiles[x, y].transform);
                 }
-                else if(visualTiles[x, y].transform.childCount > 1)
+                else if(gridTiles[x, y].transform.childCount > 1)
                 {
-                        DestroyImmediate(visualTiles[x, y].transform.GetChild(1).gameObject);
+                        DestroyImmediate(gridTiles[x, y].transform.GetChild(1).gameObject);
                 }
             }
         }
@@ -84,6 +85,20 @@ public class WorldGrid : MonoBehaviour
             return new Vector3(x * 1 + 0.5f, 0, y * 0.75f);
         else
             return new Vector3(x * 1, 0, y * 0.75f);
+    }
+
+    public (int x, int y) WorldToGrid(Vector3 worldCoord)
+    {
+        float worldX = worldCoord.x;
+        float worldY = worldCoord.z;
+        int gridxFast;
+        int gridYFast;
+        worldY /= 0.75f;
+        gridYFast = (int)worldY;
+        if (gridYFast % 2 == 0)
+            worldY -= 0.5f;
+        gridxFast = (int)worldX;
+        return (gridxFast, gridYFast);
     }
 
     public bool PlaceTileItem(int x, int y, GridTileItem item)
@@ -100,5 +115,58 @@ public class WorldGrid : MonoBehaviour
     public void SetTileType(int x, int y, GridTile.TileTypes tileType)
     {
         grid.Tiles[x, y].TileType = tileType;
+    }
+
+    public GridTile GetGridTile(int x, int y)
+    {
+        return grid.Tiles[x, y];
+    }
+
+    public GameObject GetVisualTile(int x, int y)
+    {
+        Debug.Log(gridTiles.GetLength(0) + ", " + gridTiles.GetLength(1));
+        return gridTiles[x, y];
+    }
+
+    public int GetXGridSize()
+    {
+        return grid.Tiles.GetLength(0);
+    }
+
+    public int GetYGridSize()
+    {
+        return grid.Tiles.GetLength(1);
+    }
+
+
+
+    [SerializeField]
+    private GameObject[] serializedTiles;
+    [SerializeField]
+    private int serializedXAmount;
+
+    public void OnAfterDeserialize()
+    {
+        gridTiles = new GameObject[serializedXAmount, serializedTiles.Count() / serializedXAmount];
+        for (int x = 0; x < gridTiles.GetLength(0); ++x)
+        {
+            for (int y = 0; y < gridTiles.GetLength(1); y++)
+            {
+                gridTiles[x, y] = serializedTiles[x * gridTiles.GetLength(0) + y];
+            }
+        }
+    }
+
+    public void OnBeforeSerialize()
+    {
+        serializedTiles = new GameObject[gridTiles.Length];
+        serializedXAmount = gridTiles.GetLength(0);
+        for (int x = 0; x < gridTiles.GetLength(0); ++x)
+        {
+            for (int y = 0; y < gridTiles.GetLength(1); y++)
+            {
+                serializedTiles[x * gridTiles.GetLength(0) + y] = gridTiles[x, y];
+            }
+        }
     }
 }
