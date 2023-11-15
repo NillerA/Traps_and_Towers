@@ -103,9 +103,10 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
 
     public bool PlaceTileItem(int x, int y, GridTileItem item)
     {
-        if(grid.Tiles[x, y] == null)
+        if(x > 0 && x < GetXGridSize() && y > 0 && y < GetYGridSize() && grid.Tiles[x, y] == null)
         {
             grid.Tiles[x,y].GridTileItem = item;
+            Instantiate(item.ItemPrefab);
             return true;
         }
         else
