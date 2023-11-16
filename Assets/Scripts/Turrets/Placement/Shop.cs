@@ -5,8 +5,8 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
 
-    public GameObject ShopUI;
-    public GameManager gameManager;
+    [SerializeField]
+    private GameObject ShopUI;
 
     public void PurchaseTower(GridTileItem item)
     {
@@ -22,18 +22,6 @@ public class Shop : MonoBehaviour
     public void OnPlaceSucces()
     {
         ShopUI.SetActive(false);
-        gameManager.TowerPlaced();
-    }
-
-    public void PurchaseRangedTurret()
-    {
-        MousePosition3D.Instance.StartDrag();
-
-        Debug.Log("Ranged Turret Purchaed");
-    }
-
-    public void PurchaseBarrierTurret()
-    {
-        Debug.Log("Barrier Turret Purchaed");
+        GameManager.Instance.TowerPlaced();
     }
 }

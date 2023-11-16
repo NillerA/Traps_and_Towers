@@ -10,38 +10,30 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int health;
     [SerializeField]
-    private WorldGrid worldGrid;
-    [SerializeField]
-    private GridTileItem Base, forest;
+    private GridTileItem Base, forest, monsterCave;
     [SerializeField]
     private Shop towerPlacementManager;
-    //add wave manager
 
     public GridTile baseTile;
 
     GameManager() 
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(this);
-    }
-
-    private void Awake()
-    {
-        if (worldGrid == null)
-            worldGrid = gameObject.GetComponent<WorldGrid>();
+        Instance = this;
     }
 
     private void Start()
     {
-        if (worldGrid.PlaceTileItem(worldGrid.GetXGridSize() / 2 - 1, worldGrid.GetYGridSize() / 2 - 1, Base))
-            baseTile = WorldGrid.Instance.GetGridTile(worldGrid.GetXGridSize() / 2 - 1, worldGrid.GetYGridSize() / 2 - 1);
+        if (WorldGrid.Instance.PlaceTileItem(WorldGrid.Instance.GetXGridSize() / 2 - 1, WorldGrid.Instance.GetYGridSize() / 2 - 1, Base))
+            baseTile = WorldGrid.Instance.GetGridTile(WorldGrid.Instance.GetXGridSize() / 2 - 1, WorldGrid.Instance.GetYGridSize() / 2 - 1);
         else
             Debug.LogWarning("Could not place base on grid");
+        WorldGrid.Instance.PlaceTileItem(0, 0, monsterCave);
+        WorldGrid.Instance.PlaceTileItem(0, WorldGrid.Instance.GetYGridSize() - 1, monsterCave);
+        WorldGrid.Instance.PlaceTileItem(WorldGrid.Instance.GetXGridSize() - 1, 0, monsterCave);
+        WorldGrid.Instance.PlaceTileItem(WorldGrid.Instance.GetXGridSize() - 1, WorldGrid.Instance.GetYGridSize() - 1, monsterCave);
         for (int i = 0; i < 5;)
         {
-            if (worldGrid.PlaceTileItem(Random.Range(1, worldGrid.GetXGridSize() - 1), Random.Range(1, worldGrid.GetYGridSize() - 1), forest))
+            if (WorldGrid.Instance.PlaceTileItem(Random.Range(1, WorldGrid.Instance.GetXGridSize() - 1), Random.Range(1, WorldGrid.Instance.GetYGridSize() - 1), forest))
                 i++;
         }
         towerPlacementManager.CanPlaceTurret();
@@ -57,13 +49,13 @@ public class GameManager : MonoBehaviour
 
     public void TowerPlaced()
     {
-        //start next wave
+        WaveManager.Instance.StartWave();
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if (health! > 0)
+        if (health <= 0)
             Debug.Log("U LOSE");
     }
 }

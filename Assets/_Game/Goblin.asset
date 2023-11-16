@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18dbd85ededaa304b801b2566fec1b69, type: 3}
   m_Name: Goblin
   m_EditorClassIdentifier: 
-  enemyName: Goblin
   maxHealth: 2
   damage: 1
+  speed: 5
   enemyvisualPrefab: {fileID: 1128692890748019617, guid: 4670e9e3e880a8d499a8e33015919060,
     type: 3}

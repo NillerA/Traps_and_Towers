@@ -27,10 +27,12 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
 
     WorldGrid()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(this);
+        Instance = this;
+    }
+
+    public void Awake()
+    {
+        Instance = this;
     }
 
     public void Generate()
@@ -113,7 +115,7 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
 
     public bool PlaceTileItem(int x, int y, GridTileItem item)
     {
-        if(x > 0 && x < GetXGridSize() && y > 0 && y < GetYGridSize() && grid.Tiles[x, y].GridTileItem == null)
+        if(x >= 0 && x < GetXGridSize() && y >= 0 && y < GetYGridSize() && grid.Tiles[x, y].GridTileItem == null)
         {
             grid.Tiles[x,y].GridTileItem = item;
             Instantiate(item.ItemPrefab, visualTiles[x,y].transform.position, visualTiles[x,y].transform.rotation, visualTiles[x,y].transform);

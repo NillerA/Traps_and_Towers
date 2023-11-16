@@ -20,3 +20,11 @@ public class GridTile
     public GridTileItem GridTileItem;
 
 }
+
+public class AStarInfo
+{
+    public int gCost = int.MaxValue;
+    public int fCost = int.MaxValue;
+    public GridTile cameFrom;
+    public int xCord, yCord;
+}

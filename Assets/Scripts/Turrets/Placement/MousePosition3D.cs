@@ -19,10 +19,7 @@ public class MousePosition3D : MonoBehaviour
 
     MousePosition3D() 
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(this);
+        Instance = this;
     }
 
     private void Start()
