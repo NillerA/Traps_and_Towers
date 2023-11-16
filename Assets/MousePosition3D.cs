@@ -51,9 +51,9 @@ public class MousePosition3D : MonoBehaviour
                 if (current != grid.GetVisualTile(gridX, gridY))//checks if last frames tile is not the same as the tile we are hovering over now
                 {
                     if (current != null)//checks if last tile was not null
-                        current.transform.GetChild(0).GetComponent<Renderer>().material.color = Color.green;//sets last tiles color back to green
+                        current.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");//turns emmision off for the tile material
                     current = grid.GetVisualTile(gridX, gridY);//sets current tile to the tile on the coordinates we are hovering at
-                    current.transform.GetChild(0).GetComponent<Renderer>().material.color = Color.white;//sets the tiles color that we cuurntly are hovering over to green
+                    current.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");//turns emmision on for the tile material
                 }
             yield return null;
         }
@@ -64,8 +64,7 @@ public class MousePosition3D : MonoBehaviour
         }
         else
             Debug.LogWarning("Failed to place item");
-
-        
+        current.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");//turns emmision off for the tile material
     }
 
     
