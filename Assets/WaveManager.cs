@@ -10,6 +10,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private EnemyStats goblinStats;
 
+    private Astar aStar;
+
     int enemyAmount;
     [SerializeField]
     private GameObject enemyPrefab;
@@ -19,8 +21,9 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private List<WaveStats> Waves=new List<WaveStats>();
 
-    
 
+    [SerializeField]
+    private WorldGrid worldGrid;
 
     public bool startNextWave = false;
 
@@ -40,6 +43,7 @@ public class WaveManager : MonoBehaviour
             enemyPool.Enqueue(newEnemy);
         }
 
+        aStar = gameObject.GetComponent<Astar>();
 
         startNextWave = true;
 
@@ -73,7 +77,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave()
     {
-     
+       
 
         for (int i = 0; i < Waves[currentWave].goblinAmount; i++)
         {
@@ -82,7 +86,7 @@ public class WaveManager : MonoBehaviour
            
             e.GetComponent<EnemyMovement>().stats = goblinStats;
 
-            e.GetComponent<EnemyMovement>().setUpEnemy(AStar());
+            //e.GetComponent<EnemyMovement>().setUpEnemy(aStar.FindPath();
 
             activeEnemies.Add(e);
 
@@ -111,6 +115,9 @@ public class WaveManager : MonoBehaviour
 
         return path;
     }
+
+    
+
 
     public GameObject CreateGoblin()
     {
