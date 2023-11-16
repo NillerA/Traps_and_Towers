@@ -133,7 +133,7 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
         return visualTiles[x, y];
     }
 
-    public GameObject[,] GetVisualGridTiles() 
+    public GameObject[,] GetVisualTiles() 
     {
         return visualTiles;
     }
