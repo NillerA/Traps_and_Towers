@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    public MousePosition3D mousePos;
     // Start is called before the first frame update
     private MousePosition3D mousePosition;
+
+    public void PurchaseTower(GridTileItem item)
+    {
+        mousePos.item = item;
+        mousePos.StartDrag();
+    }
+
     public void PurchaseRangedTurret()
     {
+        mousePos.StartDrag();
+
         Debug.Log("Ranged Turret Purchaed");
     }
     public void PurchaseBarrierTurret()
