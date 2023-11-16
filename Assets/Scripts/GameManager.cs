@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     private WorldGrid worldGrid;
     [SerializeField]
     private GridTileItem Base;
+    [SerializeField]
+    private Shop towerPlacementManager;
 
     private void Awake()
     {
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         worldGrid.PlaceTileItem(worldGrid.GetXGridSize() / 2 - 1, worldGrid.GetYGridSize() / 2 - 1, Base);
+        towerPlacementManager.CanPlaceTurret();
     }
 
     public void WaveDone(bool allWavesDone)

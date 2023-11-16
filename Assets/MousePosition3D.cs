@@ -5,10 +5,9 @@ using UnityEngine.InputSystem;
 
 public class MousePosition3D : MonoBehaviour
 {
-    //[SerializeField] private Camera MainCamera;
-    //[SerializeField] private LayerMask layerMask;
-    // Start is called before the first frame update
+
     public WorldGrid grid;
+    public Shop Shop;
     public InputAction mouseDown;
     
     GameObject current;
@@ -18,7 +17,6 @@ public class MousePosition3D : MonoBehaviour
     {
 
         mouseDown.Enable();
-        //mouseDown.started += StartDrag;
         mouseDown.canceled += StopDrag;
         
     }
@@ -60,32 +58,16 @@ public class MousePosition3D : MonoBehaviour
             yield return null;
         }
         if (grid.PlaceTileItem(gridX, gridY, item))
+        {
             Debug.Log("Succes");
+            Shop.OnPlaceSucces();
+        }
         else
             Debug.LogWarning("Failed to place item");
 
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    if (grid.PlaceTileItem(gridX, gridY, item))
-        //        Debug.Log("Succes");
-        //    else
-        //        Debug.LogWarning("Failed to place item");
-        //}
+        
     }
 
-    //private void Update()
-    //{
-
-    //   Ray ray = MainCamera.ScreenPointToRay(Input.mousePosition);
-    //    if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, layerMask))
-    //    {
-
-    //        transform.position = raycastHit.point;
-    //    }
-    //}
-
-
-
-    // Update is called once per frame
+    
 
 }

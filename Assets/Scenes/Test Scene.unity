@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 2044371827}
+  Shop: {fileID: 1196812723}
   mouseDown:
     m_Name: Mouse Down
     m_Type: 0
@@ -1961,10 +1962,10 @@ RectTransform:
   - {fileID: 140514327}
   m_Father: {fileID: 1196812719}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1070, y: -111.86026}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &213298892
 MonoBehaviour:
@@ -2035,7 +2036,7 @@ MonoBehaviour:
         m_MethodName: PurchaseTower
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: f447e760b66111f4aad94c7ce61c0272,
+          m_ObjectArgument: {fileID: 11400000, guid: b64ffb7dfaad00b4c95377c1df7b531e,
             type: 2}
           m_ObjectArgumentAssemblyTypeName: GridTileItem, Assembly-CSharp
           m_IntArgument: 0
@@ -9154,10 +9155,10 @@ RectTransform:
   - {fileID: 726310583}
   m_Father: {fileID: 1196812719}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 850, y: -111.86026}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1048804679
 MonoBehaviour:
@@ -10325,7 +10326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1196812719
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10424,6 +10425,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mousePos: {fileID: 39049614}
+  ShopUI: {fileID: 1196812718}
+  gameManager: {fileID: 2044371830}
 --- !u!1 &1197213282
 GameObject:
   m_ObjectHideFlags: 0
@@ -16023,6 +16026,7 @@ GameObject:
   - component: {fileID: 2044371828}
   - component: {fileID: 2044371827}
   - component: {fileID: 2044371829}
+  - component: {fileID: 2044371830}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -16383,6 +16387,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangedTurretPrefab: {fileID: 0}
+--- !u!114 &2044371830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044371826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f2cbc6c95048224689d90d4bafb8f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  worldGrid: {fileID: 2044371827}
+  Base: {fileID: 11400000, guid: b64ffb7dfaad00b4c95377c1df7b531e, type: 2}
+  towerPlacementManager: {fileID: 1196812723}
 --- !u!1 &2049029301
 GameObject:
   m_ObjectHideFlags: 0
