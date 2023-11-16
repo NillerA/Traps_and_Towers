@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b8c88415f8b0634189c20bcb880fd8c, type: 3}
+  m_Name: Base
+  m_EditorClassIdentifier: 
+  WalkSpeed: 1
+  ItemPrefab: {fileID: 1388918323949290718, guid: 84bdbeb971b6f7b4faede2e600e77dc5,
+    type: 3}
