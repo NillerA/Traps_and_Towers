@@ -6,13 +6,25 @@ using UnityEngine.InputSystem;
 public class MousePosition3D : MonoBehaviour
 {
 
-    public WorldGrid grid;
-    public Shop Shop;
+    public static MousePosition3D Instance;
+
+    [SerializeField]
+    private Shop Shop;
     public InputAction mouseDown;
     
-    GameObject current;
+    private GameObject current;
+    [HideInInspector]
     public GridTileItem item;
-    public bool isDown;
+    private bool isDown;
+
+    MousePosition3D() 
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+    }
+
     private void Start()
     {
 
@@ -20,15 +32,18 @@ public class MousePosition3D : MonoBehaviour
         mouseDown.canceled += StopDrag;
         
     }
+
     public void StartDrag()
     {
         isDown = true;
         StartCoroutine(Drag());
     }
+
     public void StopDrag(InputAction.CallbackContext context)
     {
         isDown= false;
     }
+
     public IEnumerator Drag()
     {
         (int gridX, int gridY) = (-1, -1);
@@ -46,27 +61,23 @@ public class MousePosition3D : MonoBehaviour
                 worldPos = hitInfo.point;//sets worldPos to the point where theres somthing under the mouse
                                          //Debug.Log(worldPos);//logs the worldPos
 
-            (gridX, gridY) = grid.WorldToGrid(worldPos);//turns vector3 worldPos into an x and y codinate on the grid
-            if (gridX >= 0 && gridY >= 0 && gridX < grid.GetXGridSize() && gridY < grid.GetYGridSize())//checks if grid coordinate is out of bounds of the grid size
-                if (current != grid.GetVisualTile(gridX, gridY))//checks if last frames tile is not the same as the tile we are hovering over now
+            (gridX, gridY) = WorldGrid.Instance.WorldToGrid(worldPos);//turns vector3 worldPos into an x and y codinate on the grid
+            if (gridX >= 0 && gridY >= 0 && gridX < WorldGrid.Instance.GetXGridSize() && gridY < WorldGrid.Instance.GetYGridSize())//checks if grid coordinate is out of bounds of the grid size
+                if (current != WorldGrid.Instance.GetVisualTile(gridX, gridY))//checks if last frames tile is not the same as the tile we are hovering over now
                 {
                     if (current != null)//checks if last tile was not null
                         current.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");//turns emmision off for the tile material
-                    current = grid.GetVisualTile(gridX, gridY);//sets current tile to the tile on the coordinates we are hovering at
+                    current = WorldGrid.Instance.GetVisualTile(gridX, gridY);//sets current tile to the tile on the coordinates we are hovering at
                     current.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");//turns emmision on for the tile material
                 }
             yield return null;
         }
-        if (grid.PlaceTileItem(gridX, gridY, item))
+        if (WorldGrid.Instance.PlaceTileItem(gridX, gridY, item))
         {
-            Debug.Log("Succes");
             Shop.OnPlaceSucces();
         }
         else
-            Debug.LogWarning("Failed to place item");
+            Debug.LogWarning("Failed to place item because position is not valid (insert sound/screenshake or something to notify the player)");
         current.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");//turns emmision off for the tile material
     }
-
-    
-
 }

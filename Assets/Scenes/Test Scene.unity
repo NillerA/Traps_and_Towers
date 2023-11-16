@@ -15929,7 +15929,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2044371828}
   - component: {fileID: 2044371827}
-  - component: {fileID: 2044371829}
   - component: {fileID: 2044371830}
   m_Layer: 0
   m_Name: Manager
@@ -16278,19 +16277,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2044371829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044371826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7fbc8d72cd8a224cba01a9b9b92f2e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rangedTurretPrefab: {fileID: 0}
 --- !u!114 &2044371830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16308,6 +16294,9 @@ MonoBehaviour:
   Base: {fileID: 11400000, guid: b64ffb7dfaad00b4c95377c1df7b531e, type: 2}
   forest: {fileID: 11400000, guid: f447e760b66111f4aad94c7ce61c0272, type: 2}
   towerPlacementManager: {fileID: 1196812723}
+  baseTile:
+    TileType: 0
+    GridTileItem: {fileID: 0}
 --- !u!1 &2049029301
 GameObject:
   m_ObjectHideFlags: 0
