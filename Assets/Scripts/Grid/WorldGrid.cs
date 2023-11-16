@@ -124,10 +124,19 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
         return grid.Tiles[x, y];
     }
 
+    public GridTile[,] GetGridTiles() 
+    { 
+        return grid.Tiles; 
+    }
+
     public GameObject GetVisualTile(int x, int y)
     {
-        Debug.Log(visualTiles.GetLength(0) + ", " + visualTiles.GetLength(1));
         return visualTiles[x, y];
+    }
+
+    public GameObject[,] GetVisualTiles() 
+    {
+        return visualTiles;
     }
 
     public int GetXGridSize()
