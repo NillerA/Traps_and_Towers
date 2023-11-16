@@ -9,6 +9,8 @@ using UnityEngine.UIElements;
 public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
 {
 
+    public static WorldGrid Instance;
+
     [SerializeField]
     private Grid grid;
     [SerializeField, HideInInspector]
@@ -22,6 +24,14 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
     public Map map;
     [SerializeField, Range(0,100)]
     private int xAmount, yAmount;
+
+    WorldGrid()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+    }
 
     public void Generate()
     {
