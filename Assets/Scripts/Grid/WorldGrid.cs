@@ -27,6 +27,7 @@ public class WorldGrid : MonoBehaviour
 
     public void Start()
     {
+        
         GameObject gridHolder = new GameObject();
         gridHolder.name = "Grid";
         for (int x = 0; x < grid.Tiles.GetLength(0); x++)

@@ -55,7 +55,7 @@
       "source": "builtin",
       "dependencies": {
         "com.unity.animation.rigging": "1.2.1",
-        "com.unity.timeline": "1.7.5",
+        "com.unity.timeline": "1.7.6",
         "com.unity.cinemachine": "2.9.5",
         "com.unity.formats.fbx": "4.2.1"
       }
@@ -128,7 +128,7 @@
       "source": "builtin",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
-        "com.unity.burst": "1.8.4",
+        "com.unity.burst": "1.8.9",
         "com.unity.render-pipelines.core": "14.0.9",
         "com.unity.shadergraph": "14.0.9"
       }
@@ -204,8 +204,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.7.5",
-      "depth": 0,
+      "version": "1.7.6",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.director": "1.0.0",
