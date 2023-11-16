@@ -23,6 +23,7 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
     [SerializeField, Range(0,100)]
     private int xAmount, yAmount;
 
+
     public void Generate()
     {
         if(map != null)
