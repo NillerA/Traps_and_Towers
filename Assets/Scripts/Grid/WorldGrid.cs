@@ -33,6 +33,15 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
     public void Awake()
     {
         Instance = this;
+        for (int x = 0; x < grid.Tiles.GetLength(0); x++)
+        {
+            for (int y = 0; y < grid.Tiles.GetLength(1); y++)
+            {
+                grid.Tiles[x, y].AStarInfo = new AStarInfo();
+                grid.Tiles[x, y].AStarInfo.xCord = x;
+                grid.Tiles[x, y].AStarInfo.yCord = y;
+            }
+        }
     }
 
     public void Generate()
@@ -138,6 +147,40 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
     public GridTile[,] GetGridTiles() 
     { 
         return grid.Tiles; 
+    }
+
+    public List<Point> GetGridTileNeiboursPoints(Point pointToFindNeibourOf)
+    {
+        List<Point> neighbours = new List<Point>();
+        if (pointToFindNeibourOf.X > 0)
+            neighbours.Add(pointToFindNeibourOf - new Point(1, 0));
+        if (pointToFindNeibourOf.X < GetXGridSize() - 1)
+            neighbours.Add(pointToFindNeibourOf + new Point(1, 0));
+        if (pointToFindNeibourOf.Y > 0)
+            neighbours.Add(pointToFindNeibourOf - new Point(0, 1));
+        if (pointToFindNeibourOf.Y < GetYGridSize() - 1)
+            neighbours.Add(pointToFindNeibourOf + new Point(0, 1));
+        if(pointToFindNeibourOf.X%2 == 0)
+        {
+            if(pointToFindNeibourOf.X > 0)
+            {
+                if (pointToFindNeibourOf.Y > 0)
+                    neighbours.Add(pointToFindNeibourOf - new Point(1, 1));
+                if (pointToFindNeibourOf.Y < GetYGridSize() - 1)
+                    neighbours.Add(pointToFindNeibourOf + new Point(-1, 1));
+            }
+        }
+        else
+        {
+            if (pointToFindNeibourOf.X < GetXGridSize() - 1)
+            {
+                if (pointToFindNeibourOf.Y > 0)
+                neighbours.Add(pointToFindNeibourOf - new Point(-1, 1));
+                if (pointToFindNeibourOf.Y < GetYGridSize() - 1)
+                    neighbours.Add(pointToFindNeibourOf + new Point(1, 1));
+            }
+        }
+        return neighbours;
     }
 
     public GameObject GetVisualTile(int x, int y)

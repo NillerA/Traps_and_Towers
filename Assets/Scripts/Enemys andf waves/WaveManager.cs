@@ -10,6 +10,8 @@ public class WaveManager : MonoBehaviour
     public static WaveManager Instance;
 
     [SerializeField]
+    private AStarBackup aStar;
+    [SerializeField]
     private EnemyStats goblinStats;
     [SerializeField]
     private GameObject enemyPrefab;
@@ -42,7 +44,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave()
     {
-        currentPath = AStar();
+        currentPath = aStar.GetPath(new Point(0, 0), new Point(5, 5));
         StartCoroutine(Wave());
     }
 

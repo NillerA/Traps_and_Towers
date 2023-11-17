@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,14 +16,16 @@ public class GameManager : MonoBehaviour
     private Shop towerPlacementManager;
 
     public GridTile baseTile;
+    public UnityEvent OnDmageTaken;
 
     GameManager() 
     {
         Instance = this;
     }
 
-    private void Start()
+    public void Awake()
     {
+        OnDmageTaken = new UnityEvent();
         if (WorldGrid.Instance.PlaceTileItem(WorldGrid.Instance.GetXGridSize() / 2 - 1, WorldGrid.Instance.GetYGridSize() / 2 - 1, Base))
             baseTile = WorldGrid.Instance.GetGridTile(WorldGrid.Instance.GetXGridSize() / 2 - 1, WorldGrid.Instance.GetYGridSize() / 2 - 1);
         else
@@ -36,6 +39,10 @@ public class GameManager : MonoBehaviour
             if (WorldGrid.Instance.PlaceTileItem(Random.Range(1, WorldGrid.Instance.GetXGridSize() - 1), Random.Range(1, WorldGrid.Instance.GetYGridSize() - 1), forest))
                 i++;
         }
+    }
+
+    private void Start()
+    {
         towerPlacementManager.CanPlaceTurret();
     }
 
@@ -55,6 +62,7 @@ public class GameManager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        OnDmageTaken.Invoke();
         if (health <= 0)
             Debug.Log("U LOSE");
     }
