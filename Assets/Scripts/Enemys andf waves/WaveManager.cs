@@ -24,9 +24,16 @@ public class WaveManager : MonoBehaviour
     public List<GameObject> activeEnemies = new List<GameObject>();
     private Queue<GameObject> enemyPool = new Queue<GameObject>();
 
+    bool waveSpawningDone = false;
+
     WaveManager() 
     {
         Instance = this;
+    }
+
+    private void Awake()
+    {
+        activeEnemies = new List<GameObject>();
     }
 
     void Start()
@@ -44,6 +51,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave()
     {
+        waveSpawningDone = false;
         currentPath = aStar.GetPath(new Point(0, 0), new Point(4, 4));
         StartCoroutine(Wave());
     }
@@ -52,14 +60,15 @@ public class WaveManager : MonoBehaviour
     {
         for (int i = 0; i < Waves[currentWave].waveStatsList[0].spawnAmount; i++)
         {
+            yield return new WaitForSeconds(Waves[currentWave].waveStatsList[0].SpawnRate);
+
             //TODO: add a way to spawn the different enemys at once (EnemySpawnInfo)
             GameObject spawnedEnemy = GetEnemy();
             spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(currentPath, Waves[currentWave].waveStatsList[0].enemyType);
             activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.SetActive(true);
-
-            yield return new WaitForSeconds(Waves[currentWave].waveStatsList[0].SpawnRate);
         }
+        waveSpawningDone = true;
     }
 
     public List<Vector3> AStar()
@@ -108,7 +117,7 @@ public class WaveManager : MonoBehaviour
         enemyToRelease.SetActive(false);
         activeEnemies.Remove(enemyToRelease);
         enemyPool.Enqueue(enemyToRelease);
-        if (activeEnemies.Count == 0)
+        if (activeEnemies.Count == 0 && waveSpawningDone)
         {
             currentWave += 1;
             GameManager.Instance.WaveDone(currentWave >= Waves.Count);

@@ -47,9 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  range: 15
-  fireRate: 100
-  bulletPrefab: {fileID: 0}
+  towerData: {fileID: 11400000, guid: 84da448be28452844867615009544cb3, type: 2}
 --- !u!1 &5843045500759745590
 GameObject:
   m_ObjectHideFlags: 0

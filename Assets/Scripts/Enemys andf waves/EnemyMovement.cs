@@ -38,6 +38,15 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+        {
+            WaveManager.Instance.ReleaseEnemy(gameObject);
+        }
+    }
+
     public void setUpEnemy(List<Vector3> newPath, EnemyStats newStats)
     {
         path = newPath;

@@ -6,15 +6,13 @@ public class BulletScript : MonoBehaviour
 
     private Transform target;
     public float speed = 70f;
-
-
-    // Start is called before the first frame update
+    public int damage = 1;
 
     public void Seek(Transform _target)
     {
         target = _target;
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (target == null)
@@ -38,6 +36,7 @@ public class BulletScript : MonoBehaviour
 
     void HitTarget()
     {
-        Debug.Log("We hit something");
+        target.GetComponent<EnemyMovement>().TakeDamage(damage);
+        Destroy(gameObject);
     }
 }

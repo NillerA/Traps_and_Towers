@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TowerData
   m_EditorClassIdentifier: 
   damage: 4
-  attackSpeed: 4.5
+  attackSpeed: 0.5
   viewDistance: 7.5
   model: {fileID: 0}
   bulletPrefab: {fileID: 0}
