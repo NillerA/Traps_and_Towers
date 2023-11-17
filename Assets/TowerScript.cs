@@ -8,23 +8,25 @@ public class TowerScript : MonoBehaviour
 
     public Transform target;
     public float range = 15f;
-    [Range(0,100)]
-    public float fireRate = 1f;
+    public bool shootIsTrue;
 
+    public TowerAbstractAttack towerAttack = new ArcherTowerAttack();
     //bulletprefab er en objekt jeg gører brug af fordi jeg ikke har bullets
-    public GameObject bulletPrefab;
-    public Transform firePoint;
 
+
+    //public TowerScript tower;
     private float fireCountdown = 0f;
 
-    public TowerData towerData;
+    public TowerData towerData;/* = new TowerData();*/
+
+
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
-    void UpdateTarget ()
+    void UpdateTarget()
     {
         //float shortestDistance = Mathf.Infinity;
         //Wavemanager.Enemy nearestEnemy = null;
@@ -50,31 +52,37 @@ public class TowerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
         if (target == null)
         {
             return;
         }
 
-        if (fireCountdown <= 0f)
+        //if (range <= 15f)
+        //{
+        //    shootIsTrue = false;
+        //}
+        //else
+        //{
+        //    shootIsTrue = true;
+        //}
+
+        if (Vector3.Distance(transform.position, target.transform.position) < towerData.viewDistance)
         {
-            Shoot();
-            fireCountdown = 1f / fireRate;
+            shootIsTrue = true;
+        }
+
+        if (fireCountdown <= 0f && shootIsTrue is true)
+        {
+            towerAttack.Attack(transform, target);
+            fireCountdown = 1f / towerData.attackSpeed;
         }
         fireCountdown -= Time.deltaTime;
     }
 
-    void Shoot()
-    {
-        Debug.Log("Shoot");
 
-        GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        BulletScript bullet = bulletGO.GetComponent<BulletScript>();
-
-        if (bullet != null)
-        {
-            bullet.Seek(target);
-        }
-    }
 
     private void OnDrawGizmosSelected()
     {

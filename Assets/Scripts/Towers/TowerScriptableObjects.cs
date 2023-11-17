@@ -10,7 +10,9 @@ public class TowerData : ScriptableObject
 {
 
     [Range(0, 100)]
-    public int damage, attackSpeed, viewDistance;
+    public int damage;
+    [Range(0,100)]
+    public float attackSpeed,viewDistance;
 
 
     public GameObject model, bulletPrefab;
