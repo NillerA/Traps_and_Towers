@@ -13,6 +13,6 @@ public class TowerData : ScriptableObject
     public int damage, attackSpeed, viewDistance;
 
 
-    public GameObject model;
+    public GameObject model, bulletPrefab;
 
 }
