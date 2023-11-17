@@ -44,7 +44,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave()
     {
-        currentPath = aStar.GetPath(new Point(0, 0), new Point(5, 5));
+        currentPath = aStar.GetPath(new Point(0, 0), new Point(4, 4));
         StartCoroutine(Wave());
     }
 

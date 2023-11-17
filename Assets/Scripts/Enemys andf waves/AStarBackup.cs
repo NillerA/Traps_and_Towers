@@ -9,7 +9,7 @@ public class AStarBackup : MonoBehaviour
 
     public List<Vector3> GetPath(Point startPos, Point endPos)
     {
-        if (WorldGrid.Instance.GetGridTile(endPos.X, endPos.Y).GridTileItem)
+        if (WorldGrid.Instance.GetGridTile(endPos.X, endPos.Y).GridTileItem && WorldGrid.Instance.GetGridTile(endPos.X, endPos.Y).GridTileItem.WalkSpeed == 0)
             return null;
         if (startPos == endPos)
             return new List<Vector3>() { new Vector3 (startPos.X, 0, startPos.Y), };
@@ -40,36 +40,9 @@ public class AStarBackup : MonoBehaviour
             {
                 if (WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.gCost + 10 < WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.gCost)
                 {
-                    if (WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem != null)
+                    if (WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem != null && WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem.WalkSpeed == 0)
                         continue;
-                    //if (current.X > neighbours[i].X && current.Y != neighbours[i].Y)
-                    //{
 
-                    //}
-                    //else if (current.X < neighbours[i].X && current.Y != neighbours[i].Y)
-                    //{
-
-                    //}
-                    //else if (current.X > neighbours[i].X)
-                    //{
-                    //    if (WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem != null)
-                    //        continue;
-                    //}
-                    //else if (current.X < neighbours[i].X)
-                    //{
-                    //    if (_mazeCells[current.X, current.Y].Walls[1])
-                    //        continue;
-                    //}
-                    //else if (current.Y > neighbours[i].Y)
-                    //{
-                    //    if (_mazeCells[current.X, current.Y - 1].Walls[0])
-                    //        continue;
-                    //}
-                    //else if (current.Y < neighbours[i].Y)
-                    //{
-                    //    if (_mazeCells[current.X, current.Y].Walls[0])
-                    //        continue;
-                    //}
                     WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.cameFrom = new Point(WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.xCord, WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.yCord);
                     WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.gCost = WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.gCost + 10;
                     WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.fCost = GetDistanceToGoal(neighbours[i]);
@@ -109,11 +82,12 @@ public class AStarBackup : MonoBehaviour
     {
         List<Vector3> path = new List<Vector3>();
         Point current = goal;
-        while (WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.cameFrom != null)
+        while (WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.cameFrom != new Point(-1, -1))
         {
-            path.Add(WorldGrid.Instance.GetVisualTile(current.X, current.Y).transform.position + new Vector3(0.5f, 0.5f));
+            path.Add(WorldGrid.Instance.GetVisualTile(current.X, current.Y).transform.position);
             current = WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.cameFrom;
         }
+        WorldGrid.Instance.ResetAStarInfo();
         path.Reverse();
         return path;
     }
