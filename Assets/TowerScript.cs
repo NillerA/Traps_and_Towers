@@ -71,15 +71,15 @@ public class TowerScript : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.transform.position) < towerData.viewDistance)
         {
-            shootIsTrue = true;
+            if (fireCountdown <= 0f)
+            {
+                towerAttack.Attack(transform, target);
+                fireCountdown = 1f / towerData.attackSpeed;
+            }
+            fireCountdown -= Time.deltaTime;
         }
 
-        if (fireCountdown <= 0f && shootIsTrue is true)
-        {
-            towerAttack.Attack(transform, target);
-            fireCountdown = 1f / towerData.attackSpeed;
-        }
-        fireCountdown -= Time.deltaTime;
+
     }
 
 
