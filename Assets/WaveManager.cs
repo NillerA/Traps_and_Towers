@@ -77,7 +77,28 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave()
     {
-       
+        
+
+        for (int x = 0; x < worldGrid.GetVisualTiles().GetLength(0); x++)
+        {
+            for (int y = 0; y < worldGrid.GetVisualTiles().GetLength(1); y++)
+            {
+                Vector3Int gridTilePos = Vector3Int.RoundToInt(worldGrid.GetVisualTiles()[x,y].transform.position);
+
+                bool isObstacle = false;
+
+                if (worldGrid.GetGridTiles()[x, y].GridTileItem != null)
+                {
+                    isObstacle = true;
+                    
+                }
+
+                aStar.Tiles.Add(new Tile(gridTilePos,isObstacle));
+            }
+            
+
+        } 
+
 
         for (int i = 0; i < Waves[currentWave].goblinAmount; i++)
         {
@@ -86,7 +107,7 @@ public class WaveManager : MonoBehaviour
            
             e.GetComponent<EnemyMovement>().stats = goblinStats;
 
-            //e.GetComponent<EnemyMovement>().setUpEnemy(aStar.FindPath();
+            //e.GetComponent<EnemyMovement>().setUpEnemy(aStar.FindPath());
 
             activeEnemies.Add(e);
 

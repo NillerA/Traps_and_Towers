@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class Astar : MonoBehaviour
     [SerializeField]
     private WorldGrid worldGrid;
 
-    public List<Vector3Int> Tiles = new List<Vector3Int>();    // Start is called before the first frame update
+    public List<Tile> Tiles = new List<Tile>();    // Start is called before the first frame update
     void Start()
     {
        
@@ -114,7 +115,9 @@ public class Astar : MonoBehaviour
            
 
     }
-    
+
+
+  
 }
 
 public class Tile
@@ -124,16 +127,20 @@ public class Tile
 
     public Tile Parent;
   
-    public Tile(Vector3 pos)
+    public Tile(Vector3 pos,bool isObstacle)
     {
         position = new Vector3Int((int)pos.x, (int)pos.y, (int)pos.z);
 
+        this.isObstacle = isObstacle;
+       
     }
 
     public int G;
     public int H;
 
     public int F => G + H;
+
+
 
     public List<Tile> neighborTiles = new List<Tile>();
 
