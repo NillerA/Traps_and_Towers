@@ -1,7 +1,7 @@
-using Cinemachine.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using TMPro;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -17,6 +17,8 @@ public class WaveManager : MonoBehaviour
     private GameObject enemyPrefab;
     [SerializeField]
     private List<WaveStats> Waves = new List<WaveStats>();
+    [SerializeField]
+    private TextMeshProUGUI wavesLeftText;
     private int currentWave = 0;
     private GameObject enemyHolder;
     private List<Vector3> currentPath;
@@ -121,6 +123,7 @@ public class WaveManager : MonoBehaviour
         {
             currentWave += 1;
             GameManager.Instance.WaveDone(currentWave >= Waves.Count);
+            wavesLeftText.text = "Waves left: " + (Waves.Count - currentWave);
         }
     }
 }

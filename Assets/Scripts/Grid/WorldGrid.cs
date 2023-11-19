@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.ShaderGraph.Drawing;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -41,10 +40,12 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
                 grid.Tiles[x, y].AStarInfo.xCord = x;
                 grid.Tiles[x, y].AStarInfo.yCord = y;
                 grid.Tiles[x, y].AStarInfo.cameFrom = new Point(-1,-1);
+                visualTiles[x,y].transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");//turns emmision off for the tile material
             }
         }
     }
 
+#if UNITY_EDITOR
     public void Generate()
     {
         if(map != null)
@@ -100,6 +101,7 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
             }
         }
     }
+#endif
 
     public Vector3 GridToWorld(int x, int y)
     {

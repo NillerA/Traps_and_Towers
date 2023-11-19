@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6308180530953637016}
-  - component: {fileID: -2683926066038729527}
   m_Layer: 0
   m_Name: Basic Tile
   m_TagString: Untagged
@@ -33,19 +32,6 @@ Transform:
   - {fileID: 7163359856081527038}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2683926066038729527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7414593100213077514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6758a872c5f4384cbb7b371f41162f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverColor: {r: 0.8490566, g: 0.20986114, b: 0.20986114, a: 0}
 --- !u!1001 &7269905648655337237
 PrefabInstance:
   m_ObjectHideFlags: 0

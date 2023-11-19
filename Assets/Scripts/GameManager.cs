@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     private GridTileItem Base, forest, monsterCave;
     [SerializeField]
     private Shop towerPlacementManager;
+    [SerializeField]
+    TextMeshProUGUI healthText;
 
     public GridTile baseTile;
     public UnityEvent OnDmageTaken;
@@ -45,11 +48,16 @@ public class GameManager : MonoBehaviour
     {
         towerPlacementManager.CanPlaceTurret();
     }
-
+    bool lost;//midlertidlig
+    [SerializeField]
+    private GameObject fastWin, fastLose;//midlertidlig
     public void WaveDone(bool allWavesDone)
     {
         if (allWavesDone)
-            Debug.Log("U WIN");
+        {
+            if(!lost)
+                fastWin.SetActive(true);
+        }
         else
             towerPlacementManager.CanPlaceTurret();
     }
@@ -62,8 +70,12 @@ public class GameManager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        healthText.text = health.ToString();
         OnDmageTaken.Invoke();
         if (health <= 0)
-            Debug.Log("U LOSE");
+        {
+            fastLose.SetActive(true);
+            lost = true;
+        }
     }
 }
