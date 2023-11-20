@@ -26,20 +26,20 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    public void Awake()
+    private void Awake()
     {
         OnDmageTaken = new UnityEvent();
-        if (WorldGrid.Instance.PlaceTileItem(WorldGrid.Instance.GetXGridSize() / 2 - 1, WorldGrid.Instance.GetYGridSize() / 2 - 1, Base))
-            baseTile = WorldGrid.Instance.GetGridTile(WorldGrid.Instance.GetXGridSize() / 2 - 1, WorldGrid.Instance.GetYGridSize() / 2 - 1);
+        if (GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() / 2 - 1, Base))
+            baseTile = GridManager.Instance.GetGridTile(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() / 2 - 1);
         else
             Debug.LogWarning("Could not place base on grid");
-        WorldGrid.Instance.PlaceTileItem(0, 0, monsterCave);
-        WorldGrid.Instance.PlaceTileItem(0, WorldGrid.Instance.GetYGridSize() - 1, monsterCave);
-        WorldGrid.Instance.PlaceTileItem(WorldGrid.Instance.GetXGridSize() - 1, 0, monsterCave);
-        WorldGrid.Instance.PlaceTileItem(WorldGrid.Instance.GetXGridSize() - 1, WorldGrid.Instance.GetYGridSize() - 1, monsterCave);
+        GridManager.Instance.PlaceTileItem(0, 0, monsterCave);
+        GridManager.Instance.PlaceTileItem(0, GridManager.Instance.GetYGridSize() - 1, monsterCave);
+        GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() - 1, 0, monsterCave);
+        GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() - 1, GridManager.Instance.GetYGridSize() - 1, monsterCave);
         for (int i = 0; i < 5;)
         {
-            if (WorldGrid.Instance.PlaceTileItem(Random.Range(1, WorldGrid.Instance.GetXGridSize() - 1), Random.Range(1, WorldGrid.Instance.GetYGridSize() - 1), forest))
+            if (GridManager.Instance.PlaceTileItem(Random.Range(1, GridManager.Instance.GetXGridSize() - 1), Random.Range(1, GridManager.Instance.GetYGridSize() - 1), forest))
                 i++;
         }
     }
@@ -48,9 +48,11 @@ public class GameManager : MonoBehaviour
     {
         towerPlacementManager.CanPlaceTurret();
     }
+
     bool lost;//midlertidlig
     [SerializeField]
     private GameObject fastWin, fastLose;//midlertidlig
+    
     public void WaveDone(bool allWavesDone)
     {
         if (allWavesDone)

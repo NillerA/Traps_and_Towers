@@ -5,10 +5,10 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
+public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
 {
 
-    public static WorldGrid Instance;
+    public static GridManager Instance;
 
     [SerializeField]
     private Grid grid;
@@ -24,7 +24,7 @@ public class WorldGrid : MonoBehaviour, ISerializationCallbackReceiver
     [SerializeField, Range(0,100)]
     private int xAmount, yAmount;
 
-    WorldGrid()
+    GridManager()
     {
         Instance = this;
     }

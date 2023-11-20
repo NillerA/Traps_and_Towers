@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class WorldToGridTest : MonoBehaviour
 {
 
-    public WorldGrid grid;
+    public GridManager grid;
     GameObject current;
     public GridTileItem item;
 

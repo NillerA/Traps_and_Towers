@@ -9,15 +9,15 @@ public class AStarBackup : MonoBehaviour
 
     public List<Vector3> GetPath(Point startPos, Point endPos)
     {
-        if (WorldGrid.Instance.GetGridTile(endPos.X, endPos.Y).GridTileItem && WorldGrid.Instance.GetGridTile(endPos.X, endPos.Y).GridTileItem.WalkSpeed == 0)
+        if (GridManager.Instance.GetGridTile(endPos.X, endPos.Y).GridTileItem && GridManager.Instance.GetGridTile(endPos.X, endPos.Y).GridTileItem.WalkSpeed == 0)
             return null;
         if (startPos == endPos)
             return new List<Vector3>() { new Vector3 (startPos.X, 0, startPos.Y), };
         goal = endPos;
         List<Point> open = new List<Point>() { startPos };
 
-        WorldGrid.Instance.GetGridTile(startPos.X, startPos.Y).AStarInfo.gCost = 0;
-        WorldGrid.Instance.GetGridTile(startPos.X, startPos.Y).AStarInfo.fCost = GetDistanceToGoal(startPos);
+        GridManager.Instance.GetGridTile(startPos.X, startPos.Y).AStarInfo.gCost = 0;
+        GridManager.Instance.GetGridTile(startPos.X, startPos.Y).AStarInfo.fCost = GetDistanceToGoal(startPos);
 
         while (open.Count > 0)
         {
@@ -25,7 +25,7 @@ public class AStarBackup : MonoBehaviour
             Point current = open[0];
             for (int i = 1; i < open.Count; i++)
             {
-                if (WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.fCost > WorldGrid.Instance.GetGridTile(open[i].X, open[i].Y).AStarInfo.fCost)
+                if (GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.fCost > GridManager.Instance.GetGridTile(open[i].X, open[i].Y).AStarInfo.fCost)
                     current = open[i];
             }
             open.Remove(current);
@@ -35,17 +35,17 @@ public class AStarBackup : MonoBehaviour
                 return ReconstructPath(current);
 
             //finds neigbours
-            List<Point> neighbours = WorldGrid.Instance.GetGridTileNeiboursPoints(current);
+            List<Point> neighbours = GridManager.Instance.GetGridTileNeiboursPoints(current);
             for (int i = 0; i < neighbours.Count; i++)
             {
-                if (WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.gCost + 10 < WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.gCost)
+                if (GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.gCost + 10 < GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.gCost)
                 {
-                    if (WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem != null && WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem.WalkSpeed == 0)
+                    if (GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem != null && GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem.WalkSpeed == 0)
                         continue;
 
-                    WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.cameFrom = new Point(WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.xCord, WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.yCord);
-                    WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.gCost = WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.gCost + 10;
-                    WorldGrid.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.fCost = GetDistanceToGoal(neighbours[i]);
+                    GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.cameFrom = new Point(GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.xCord, GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.yCord);
+                    GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.gCost = GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.gCost + 10;
+                    GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.fCost = GetDistanceToGoal(neighbours[i]);
                     if (!open.Contains(neighbours[i]))
                         open.Add(neighbours[i]);
                 }
@@ -82,12 +82,12 @@ public class AStarBackup : MonoBehaviour
     {
         List<Vector3> path = new List<Vector3>();
         Point current = goal;
-        while (WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.cameFrom != new Point(-1, -1))
+        while (GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.cameFrom != new Point(-1, -1))
         {
-            path.Add(WorldGrid.Instance.GetVisualTile(current.X, current.Y).transform.position);
-            current = WorldGrid.Instance.GetGridTile(current.X, current.Y).AStarInfo.cameFrom;
+            path.Add(GridManager.Instance.GetVisualTile(current.X, current.Y).transform.position);
+            current = GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.cameFrom;
         }
-        WorldGrid.Instance.ResetAStarInfo();
+        GridManager.Instance.ResetAStarInfo();
         path.Reverse();
         return path;
     }

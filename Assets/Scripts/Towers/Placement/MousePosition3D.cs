@@ -58,18 +58,18 @@ public class MousePosition3D : MonoBehaviour
                 worldPos = hitInfo.point;//sets worldPos to the point where theres somthing under the mouse
                                          //Debug.Log(worldPos);//logs the worldPos
 
-            (gridX, gridY) = WorldGrid.Instance.WorldToGrid(worldPos);//turns vector3 worldPos into an x and y codinate on the grid
-            if (gridX >= 0 && gridY >= 0 && gridX < WorldGrid.Instance.GetXGridSize() && gridY < WorldGrid.Instance.GetYGridSize())//checks if grid coordinate is out of bounds of the grid size
-                if (current != WorldGrid.Instance.GetVisualTile(gridX, gridY))//checks if last frames tile is not the same as the tile we are hovering over now
+            (gridX, gridY) = GridManager.Instance.WorldToGrid(worldPos);//turns vector3 worldPos into an x and y codinate on the grid
+            if (gridX >= 0 && gridY >= 0 && gridX < GridManager.Instance.GetXGridSize() && gridY < GridManager.Instance.GetYGridSize())//checks if grid coordinate is out of bounds of the grid size
+                if (current != GridManager.Instance.GetVisualTile(gridX, gridY))//checks if last frames tile is not the same as the tile we are hovering over now
                 {
                     if (current != null)//checks if last tile was not null
                         current.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");//turns emmision off for the tile material
-                    current = WorldGrid.Instance.GetVisualTile(gridX, gridY);//sets current tile to the tile on the coordinates we are hovering at
+                    current = GridManager.Instance.GetVisualTile(gridX, gridY);//sets current tile to the tile on the coordinates we are hovering at
                     current.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");//turns emmision on for the tile material
                 }
             yield return null;
         }
-        if (WorldGrid.Instance.PlaceTileItem(gridX, gridY, item))
+        if (GridManager.Instance.PlaceTileItem(gridX, gridY, item))
         {
             Shop.OnPlaceSucces();
         }

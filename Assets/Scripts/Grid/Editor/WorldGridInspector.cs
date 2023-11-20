@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Unity.VisualScripting;
 
-[CustomEditor(typeof(WorldGrid))]
+[CustomEditor(typeof(GridManager))]
 public class WorldGridInspector : Editor
 {
 
@@ -22,7 +22,7 @@ public class WorldGridInspector : Editor
         // Load from default reference
         inspectorUXML.CloneTree(myInspector);
         generate = myInspector.Q<Button>("Generate");
-        generate.RegisterCallback<MouseUpEvent>((evt) => target.GetComponent<WorldGrid>().Generate());
+        generate.RegisterCallback<MouseUpEvent>((evt) => target.GetComponent<GridManager>().Generate());
 
         // Return the finished inspector UI
         return myInspector;

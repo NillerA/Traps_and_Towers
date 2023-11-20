@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.EditorTools;
 
-[EditorTool("TerrainModification", typeof(WorldGrid))]
+[EditorTool("TerrainModification", typeof(GridManager))]
 public class MapEditor : EditorTool
 {
 
