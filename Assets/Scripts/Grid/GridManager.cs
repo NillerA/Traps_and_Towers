@@ -96,7 +96,7 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
                 }
                 else if(visualTiles[x, y].transform.childCount > 1)
                 {
-                        DestroyImmediate(visualTiles[x, y].transform.GetChild(1).gameObject);
+                    DestroyImmediate(visualTiles[x, y].transform.GetChild(1).gameObject);
                 }
             }
         }
@@ -165,7 +165,7 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
             neighbours.Add(pointToFindNeibourOf + new Point(0, 1));
         if(pointToFindNeibourOf.X%2 == 0)
         {
-            if(pointToFindNeibourOf.X > GetXGridSize() - 1)
+            if(pointToFindNeibourOf.X < GetXGridSize() - 1)
             {
                 if (pointToFindNeibourOf.Y > 0)
                     neighbours.Add(pointToFindNeibourOf - new Point(-1, 1));

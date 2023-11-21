@@ -29,7 +29,7 @@ public class GridTile
 public class AStarInfo
 {
     public int gCost = int.MaxValue;
-    public int fCost = int.MaxValue;
+    public float fCost = float.MaxValue;
     public Point cameFrom;
     public int xCord, yCord;
 }
