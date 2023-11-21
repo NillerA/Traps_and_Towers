@@ -43,7 +43,7 @@ public class AStarBackup : MonoBehaviour
                     if (GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem != null && GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem.WalkSpeed == 0)
                         continue;
 
-                    GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.cameFrom = new Point(GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.xCord, GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.yCord);
+                    GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.cameFrom = current;//new Point(GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.xCord, GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.yCord);
                     GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.gCost = GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.gCost + 10;
                     GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.fCost = GetDistanceToGoal(neighbours[i]);
                     if (!open.Contains(neighbours[i]))
@@ -55,27 +55,9 @@ public class AStarBackup : MonoBehaviour
         return null;
     }
 
-    private int GetDistanceToGoal(Point startPos)
+    private float GetDistanceToGoal(Point startPos)
     {
-        int distance = 0;
-        int currentX = startPos.X, currentY = startPos.Y;
-        while (currentX != goal.X)
-        {
-            distance += 10;
-            if (currentX < goal.X)
-                currentX++;
-            else
-                currentX--;
-        }
-        while (currentY != goal.Y)
-        {
-            distance += 10;
-            if (currentY < goal.Y)
-                currentY++;
-            else
-                currentY--;
-        }
-        return distance;
+        return Vector3.Distance(GridManager.Instance.GridToWorld(startPos.X,startPos.Y), GridManager.Instance.GridToWorld(4, 4));
     }
 
     public List<Vector3> ReconstructPath(Point end)
