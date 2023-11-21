@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d94af621e30472e46b7598879035cfa5, type: 3}
-  m_Name: ArcherTower
+  m_Name: ArcherTowerItem
   m_EditorClassIdentifier: 
   WalkSpeed: 0
   ItemPrefab: {fileID: 1634718483713813621, guid: c4700f19164c2334c8f8bc0b8cfa8c80,

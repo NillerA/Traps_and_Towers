@@ -10,8 +10,8 @@ public class Shop : MonoBehaviour
 
     public void PurchaseTower(TowerItem item)
     {
-        MousePosition3D.Instance.item = item;
-        MousePosition3D.Instance.StartDrag();
+        BuildManager.Instance.item = item;
+        BuildManager.Instance.StartDrag();
     }
 
     public void CanPlaceTurret()

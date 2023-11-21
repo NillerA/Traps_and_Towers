@@ -64,11 +64,13 @@ public class TowerScript : MonoBehaviour
     private void OnMouseEnter()
     {
         shootRadiusDisplay.Draw(towerData.viewDistance);
+        BuildManager.Instance.ShowStatsDisplay(towerData);
     }
 
     private void OnMouseExit()
     {
         shootRadiusDisplay.Hide();
+        BuildManager.Instance.HideStatsDisplay();
     }
 
     private void OnDrawGizmosSelected()
