@@ -10,6 +10,8 @@ public class MousePosition3D : MonoBehaviour
 
     [SerializeField]
     private Shop Shop;
+    [SerializeField]
+    private CircleRend radiusShowcase;
     public InputAction mouseDown;
     
     private GameObject current;
@@ -38,7 +40,8 @@ public class MousePosition3D : MonoBehaviour
 
     public void StopDrag(InputAction.CallbackContext context)
     {
-        isDown= false;
+        isDown = false;
+        radiusShowcase.Hide();
     }
 
     public IEnumerator Drag()
@@ -66,6 +69,8 @@ public class MousePosition3D : MonoBehaviour
                         current.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");//turns emmision off for the tile material
                     current = GridManager.Instance.GetVisualTile(gridX, gridY);//sets current tile to the tile on the coordinates we are hovering at
                     current.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");//turns emmision on for the tile material
+                    radiusShowcase.transform.position = current.transform.position;
+                    radiusShowcase.Draw(item.ItemPrefab.GetComponent<TowerScript>().towerData.viewDistance);
                 }
             yield return null;
         }

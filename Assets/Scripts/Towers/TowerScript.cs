@@ -12,6 +12,9 @@ public class TowerScript : MonoBehaviour
     //private float fireCountdown = 0f;
     public TowerData towerData;
 
+    [SerializeField]
+    private CircleRend shootRadiusDisplay;
+
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
@@ -46,23 +49,6 @@ public class TowerScript : MonoBehaviour
         }
     }
 
-    //void Update()
-    //{
-    //    if (target == null)
-    //    {
-    //        return;
-    //    }
-    //    if (Vector3.Distance(transform.position, target.transform.position) < towerData.viewDistance)
-    //    {
-    //        if (fireCountdown <= 0f)
-    //        {
-    //            towerAttack.Attack(transform, target);
-    //            fireCountdown = 1f / towerData.attackSpeed;
-    //        }
-    //        fireCountdown -= Time.deltaTime;
-    //    }
-    //}
-
     private IEnumerator ShootLoop() 
     {
         while (true)
@@ -73,6 +59,16 @@ public class TowerScript : MonoBehaviour
                 towerAttack.Attack(transform, target);
             }
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        shootRadiusDisplay.Draw(towerData.viewDistance);
+    }
+
+    private void OnMouseExit()
+    {
+        shootRadiusDisplay.Hide();
     }
 
     private void OnDrawGizmosSelected()

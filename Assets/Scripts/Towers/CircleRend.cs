@@ -18,13 +18,10 @@ public class CircleRend : MonoBehaviour
         lineRenderer.widthMultiplier = 0.1f;
     }
 
-    private void Update()
+    public void Draw(float circleRadius)
     {
-        Draw();
-    }
-
-    void Draw()
-    {
+        radius = circleRadius;
+        lineRenderer.enabled = true;
         float angle_between_points = 360f / pointCount;
 
         for (int i = 0; i <= pointCount; i++)
@@ -35,5 +32,10 @@ public class CircleRend : MonoBehaviour
 
             lineRenderer.SetPosition(i, position);
         }
+    }
+
+    public void Hide()
+    {
+        lineRenderer.enabled = false;
     }
 }
