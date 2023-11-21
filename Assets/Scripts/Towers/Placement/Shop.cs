@@ -8,7 +8,7 @@ public class Shop : MonoBehaviour
     [SerializeField]
     private GameObject ShopUI;
 
-    public void PurchaseTower(GridTileItem item)
+    public void PurchaseTower(TowerItem item)
     {
         MousePosition3D.Instance.item = item;
         MousePosition3D.Instance.StartDrag();

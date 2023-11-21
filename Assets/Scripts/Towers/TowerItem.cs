@@ -6,6 +6,6 @@ using UnityEngine;
 public class TowerItem : GridTileItem
 {
 
-
+    public GameObject PreviewPrefab;
 
 }

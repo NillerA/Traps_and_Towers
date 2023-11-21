@@ -13487,7 +13487,7 @@ PrefabInstance:
     - target: {fileID: 278693850188797117, guid: f8ca134a32f978148a73af1bb85e6918,
         type: 3}
       propertyPath: m_Name
-      value: TowerRadiusShowcase
+      value: TowerShowcase
       objectReference: {fileID: 0}
     - target: {fileID: 1843008703681949925, guid: f8ca134a32f978148a73af1bb85e6918,
         type: 3}

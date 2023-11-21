@@ -12,11 +12,12 @@ public class MousePosition3D : MonoBehaviour
     private Shop Shop;
     [SerializeField]
     private CircleRend radiusShowcase;
+    private GameObject towerShowcase;
     public InputAction mouseDown;
     
     private GameObject current;
     [HideInInspector]
-    public GridTileItem item;
+    public TowerItem item;
     private bool isDown;
 
     MousePosition3D() 
@@ -36,12 +37,15 @@ public class MousePosition3D : MonoBehaviour
     {
         isDown = true;
         StartCoroutine(Drag());
+        towerShowcase = Instantiate(item.PreviewPrefab, radiusShowcase.transform.position, radiusShowcase.transform.rotation, radiusShowcase.transform);
     }
 
     public void StopDrag(InputAction.CallbackContext context)
     {
         isDown = false;
         radiusShowcase.Hide();
+        if (towerShowcase != null)
+            Destroy(towerShowcase);
     }
 
     public IEnumerator Drag()
