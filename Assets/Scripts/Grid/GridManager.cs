@@ -179,7 +179,7 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
             neighbours.Add(pointToFindNeibourOf - new Point(0, 1));
         if (pointToFindNeibourOf.Y < GetYGridSize() - 1)
             neighbours.Add(pointToFindNeibourOf + new Point(0, 1));
-        if(pointToFindNeibourOf.X%2 == 0)
+        if(pointToFindNeibourOf.X%2 == 1)
         {
             if(pointToFindNeibourOf.X < GetXGridSize() - 1)
             {

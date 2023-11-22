@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,7 +19,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI healthText;
 
+    [HideInInspector]
     public GridTile baseTile;
+    [SerializeField]
+    private Slider healthBar;
     public UnityEvent OnDmageTaken;
 
     GameManager() 
@@ -30,7 +34,10 @@ public class GameManager : MonoBehaviour
     {
         OnDmageTaken = new UnityEvent();
         if (GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() / 2 - 1, Base))
+        {
             baseTile = GridManager.Instance.GetGridTile(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() / 2 - 1);
+            healthBar = GridManager.Instance.GetVisualTile(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() / 2 - 1).transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Slider>();
+        }
         else
             Debug.LogWarning("Could not place base on grid");
         GridManager.Instance.PlaceTileItem(0, 0, monsterCave);
@@ -73,6 +80,7 @@ public class GameManager : MonoBehaviour
     {
         health -= damage;
         healthText.text = health.ToString();
+        healthBar.value = health;
         OnDmageTaken.Invoke();
         if (health <= 0)
         {
