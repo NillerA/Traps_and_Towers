@@ -28,6 +28,12 @@ public class WaveManager : MonoBehaviour
 
     bool waveSpawningDone = false;
 
+    [SerializeField]
+    private LineRenderer pathLineRend;
+
+    public List<Point> SpawnPoints;
+    int currentSpawn;
+
     WaveManager() 
     {
         Instance = this;
@@ -49,12 +55,14 @@ public class WaveManager : MonoBehaviour
             newEnemy.SetActive(false);
             enemyPool.Enqueue(newEnemy);
         }
+        currentSpawn = Random.Range(0,SpawnPoints.Count);
+        UpdatePath();
     }
 
     public void StartWave()
     {
+        UpdatePath();
         waveSpawningDone = false;
-        currentPath = aStar.GetPath(new Point(0, 0), new Point(4, 4));
         StartCoroutine(Wave());
     }
 
@@ -70,6 +78,8 @@ public class WaveManager : MonoBehaviour
             activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.SetActive(true);
         }
+        currentSpawn = Random.Range(0, SpawnPoints.Count);
+        UpdatePath();
         waveSpawningDone = true;
     }
 
@@ -124,6 +134,16 @@ public class WaveManager : MonoBehaviour
             currentWave += 1;
             GameManager.Instance.WaveDone(currentWave >= Waves.Count);
             wavesLeftText.text = "Waves left: " + (Waves.Count - currentWave);
+        }
+    }
+
+    public void UpdatePath()
+    {
+        currentPath = aStar.GetPath(SpawnPoints[currentSpawn], new Point(4, 4));
+        pathLineRend.positionCount = currentPath.Count;
+        for (int i = 0; i < currentPath.Count; i++)
+        {
+            pathLineRend.SetPosition(i, currentPath[i] + new Vector3(0,0.15f,0));
         }
     }
 }

@@ -44,6 +44,13 @@ public class GameManager : MonoBehaviour
         GridManager.Instance.PlaceTileItem(0, GridManager.Instance.GetYGridSize() - 1, monsterCave);
         GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() - 1, 0, monsterCave);
         GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() - 1, GridManager.Instance.GetYGridSize() - 1, monsterCave);
+        WaveManager.Instance.SpawnPoints = new List<Point>
+        {
+            new Point(0,0),
+            new Point(0,GridManager.Instance.GetYGridSize() - 1),
+            new Point(GridManager.Instance.GetXGridSize() - 1,0),
+            new Point(GridManager.Instance.GetXGridSize() - 1,GridManager.Instance.GetYGridSize() - 1)
+        };
         for (int i = 0; i < 5;)
         {
             if (GridManager.Instance.PlaceTileItem(Random.Range(1, GridManager.Instance.GetXGridSize() - 1), Random.Range(1, GridManager.Instance.GetYGridSize() - 1), forest))
