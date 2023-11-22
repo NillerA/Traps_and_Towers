@@ -78,8 +78,6 @@ public class WaveManager : MonoBehaviour
             activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.SetActive(true);
         }
-        currentSpawn = Random.Range(0, SpawnPoints.Count);
-        UpdatePath();
         waveSpawningDone = true;
     }
 
@@ -134,6 +132,8 @@ public class WaveManager : MonoBehaviour
             currentWave += 1;
             GameManager.Instance.WaveDone(currentWave >= Waves.Count);
             wavesLeftText.text = "Waves left: " + (Waves.Count - currentWave);
+            currentSpawn = Random.Range(0, SpawnPoints.Count);
+            UpdatePath();
         }
     }
 

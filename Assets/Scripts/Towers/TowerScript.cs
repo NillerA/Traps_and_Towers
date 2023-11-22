@@ -56,7 +56,7 @@ public class TowerScript : MonoBehaviour
             yield return new WaitForSeconds(towerData.attackSpeed);
             if (UpdateTarget())
             {
-                towerAttack.Attack(transform, target);
+                towerAttack.Attack(transform, target, towerData.damage);
             }
         }
     }

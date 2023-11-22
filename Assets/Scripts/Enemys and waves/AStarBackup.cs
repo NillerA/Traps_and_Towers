@@ -69,6 +69,7 @@ public class AStarBackup : MonoBehaviour
             path.Add(GridManager.Instance.GetVisualTile(current.X, current.Y).transform.position);
             current = GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.cameFrom;
         }
+        path.Add(GridManager.Instance.GetVisualTile(current.X, current.Y).transform.position);
         GridManager.Instance.ResetAStarInfo();
         path.Reverse();
         return path;

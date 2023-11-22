@@ -7,6 +7,6 @@ public abstract class TowerAbstractAttack
 {
 
     public TowerData towerData;
-    public abstract void Attack(Transform shootFrom, Transform ShootTo);
+    public abstract void Attack(Transform shootFrom, Transform ShootTo, int damage);
 
 }
