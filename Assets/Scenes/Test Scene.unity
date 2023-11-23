@@ -3423,14 +3423,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 5, y: 5, z: -1}
+  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
+  m_LocalPosition: {x: 5.5, y: 6, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2088452354}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17227,7 +17227,10 @@ MonoBehaviour:
     type: 3}
   Waves:
   - {fileID: 11400000, guid: a74783c06f11aed48ad70f4400924e69, type: 2}
-  - {fileID: 11400000, guid: a74783c06f11aed48ad70f4400924e69, type: 2}
+  - {fileID: 11400000, guid: c3a4163a67a3df74787f7143fee661e0, type: 2}
+  - {fileID: 11400000, guid: 546a85b96191f7c4a97ffa82ff67a9b6, type: 2}
+  - {fileID: 11400000, guid: 98bb757d8978ed44b921d26fc02f2098, type: 2}
+  - {fileID: 11400000, guid: 08d472fe261745b4d83d3ef830529b45, type: 2}
   wavesLeftText: {fileID: 1744667351}
   activeEnemies: []
   pathLineRend: {fileID: 2044371835}

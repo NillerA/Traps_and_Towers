@@ -17,7 +17,7 @@ public class EnemyMovement : MonoBehaviour
     private GameObject healthBarSeperator;
     private List<GameObject> healthBarSeperators;
 
-    int currentPathTarget=0;
+    int currentPathTarget = 0;
     [SerializeField]
     private List<Vector3> path = new List<Vector3>();
     private Vector3 direction;
@@ -53,6 +53,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void setUpEnemy(List<Vector3> newPath, EnemyStats newStats)
     {
+        currentPathTarget = 0;
         path = newPath;
         transform.position = newPath[0];
 
