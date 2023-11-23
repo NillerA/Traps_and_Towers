@@ -179,12 +179,12 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
             neighbours.Add(pointToFindNeibourOf - new Point(0, 1));
         if (pointToFindNeibourOf.Y < GetYGridSize() - 1)
             neighbours.Add(pointToFindNeibourOf + new Point(0, 1));
-        if(pointToFindNeibourOf.X%2 == 1)
+        if (pointToFindNeibourOf.Y % 2 == 0)
         {
-            if(pointToFindNeibourOf.X < GetXGridSize() - 1)
+            if (pointToFindNeibourOf.X < GetXGridSize() - 1)
             {
                 if (pointToFindNeibourOf.Y > 0)
-                    neighbours.Add(pointToFindNeibourOf - new Point(-1, 1));
+                    neighbours.Add(pointToFindNeibourOf + new Point(1, -1));
                 if (pointToFindNeibourOf.Y < GetYGridSize() - 1)
                     neighbours.Add(pointToFindNeibourOf + new Point(1, 1));
             }
@@ -194,12 +194,24 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
             if (pointToFindNeibourOf.X > 0)
             {
                 if (pointToFindNeibourOf.Y > 0)
-                neighbours.Add(pointToFindNeibourOf - new Point(1, 1));
+                    neighbours.Add(pointToFindNeibourOf + new Point(-1, -1));
                 if (pointToFindNeibourOf.Y < GetYGridSize() - 1)
                     neighbours.Add(pointToFindNeibourOf + new Point(-1, 1));
             }
         }
         return neighbours;
+    }
+
+    //TODO: implement radius(only takes 1 in radius at all times)
+    public List<Vector3> GetTilesInRadius(Point location, int radius)
+    {
+        List<Vector3> tiles = new List<Vector3>();
+        List<Point> tilePoints = GetGridTileNeiboursPoints(location);
+        foreach (Point tilePoint in tilePoints)
+        {
+            tiles.Add(GridToWorld(tilePoint.X,tilePoint.Y));
+        }
+        return tiles;
     }
 
     public void ResetAStarInfo()
