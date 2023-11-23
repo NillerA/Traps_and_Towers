@@ -166,6 +166,14 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
         }
     }
 
+    public bool CanPlaceItem(int x, int y)
+    {
+        if (x >= 0 && x < GetXGridSize() && y >= 0 && y < GetYGridSize() && grid.Tiles[x, y].GridTileItem == null)
+            return true;
+        else
+            return false;
+    }
+
     public void SetTileType(int x, int y, GridTile.TileTypes tileType)
     {
         grid.Tiles[x, y].TileType = tileType;
