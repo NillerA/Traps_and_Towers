@@ -6,6 +6,7 @@ using UnityEngine;
 public class TowerScript : MonoBehaviour
 {
 
+
     public Transform target;
 
     public TowerAbstractAttack towerAttack = new ArcherTowerAttack();
@@ -15,14 +16,18 @@ public class TowerScript : MonoBehaviour
     [SerializeField]
     private CircleRend shootRadiusDisplay;
 
+
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         StartCoroutine(ShootLoop());
+
+  
     }
 
     bool UpdateTarget()
     {
+     
         if (WaveManager.Instance.activeEnemies.Count == 0)
         return false;
         float shortestDistance = Mathf.Infinity;
@@ -47,6 +52,7 @@ public class TowerScript : MonoBehaviour
             target = null;
             return false;
         }
+
     }
 
     private IEnumerator ShootLoop() 

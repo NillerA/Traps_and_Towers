@@ -56,6 +56,7 @@ public class BuildManager : MonoBehaviour
         isDown = true;
         StartCoroutine(Drag());
         towerShowcase = Instantiate(item.PreviewPrefab, radiusShowcase.transform.position, radiusShowcase.transform.rotation, radiusShowcase.transform);
+
     }
 
     public void StopDrag(InputAction.CallbackContext context)

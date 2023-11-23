@@ -19,7 +19,7 @@ public class WaveManager : MonoBehaviour
     private List<WaveStats> Waves = new List<WaveStats>();
     [SerializeField]
     private TextMeshProUGUI wavesLeftText;
-    private int currentWave = 0;
+    public int currentWave = 0;
     private GameObject enemyHolder;
     private List<Vector3> currentPath;
 
