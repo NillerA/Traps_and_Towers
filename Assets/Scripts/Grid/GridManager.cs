@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
 public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
 {
@@ -151,6 +152,18 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
         }
         else
             return false;
+    }
+
+    public bool RemoveTileItem(int x, int y)
+    {
+        if (x >= 0 && x < GetXGridSize() && y >= 0 && y < GetYGridSize() && grid.Tiles[x, y].GridTileItem == null)
+            return false;
+        else
+        {
+            grid.Tiles[x, y].GridTileItem = null;
+            Destroy(visualTiles[x, y].transform.GetChild(1).gameObject);
+            return true;
+        }
     }
 
     public void SetTileType(int x, int y, GridTile.TileTypes tileType)
