@@ -22,4 +22,9 @@ public class ArcherTowerAttack : TowerAbstractAttack
         bullet.damage = damage;
         bullet.Seek(ShootTo);
     }
+
+    public override void Attack(Vector3 shootFrom, Vector3 ShootTo, int damage)
+    {
+        throw new System.NotImplementedException();
+    }
 }

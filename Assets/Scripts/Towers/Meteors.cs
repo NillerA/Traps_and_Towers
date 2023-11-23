@@ -5,12 +5,14 @@ using UnityEngine;
 public class Meteors : MonoBehaviour
 {
     public float fuseTime;
+    public int damage = 1;
 
     void Explode()
     {
-        var exp = GetComponent<ParticleSystem>();
-        exp.Play();
-        Destroy(gameObject, exp.duration);
+        
+        //var exp = GetComponent<ParticleSystem>();
+        //exp.Play();
+        Destroy(gameObject);
     }
     private void Start()
     {
