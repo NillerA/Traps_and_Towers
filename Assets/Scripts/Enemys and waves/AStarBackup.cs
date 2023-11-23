@@ -30,7 +30,7 @@ public class AStarBackup : MonoBehaviour
             }
             open.Remove(current);
 
-            //checks if w found goal
+            //checks if we found goal
             if (current == goal)
                 return ReconstructPath(current);
 
@@ -79,7 +79,7 @@ public class AStarBackup : MonoBehaviour
             }
             open.Remove(current);
 
-            //checks if w found goal
+            //checks if we found goal
             if (current == goal)
                 return ReconstructPath(current);
 
