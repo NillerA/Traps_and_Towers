@@ -81,20 +81,6 @@ public class WaveManager : MonoBehaviour
         waveSpawningDone = true;
     }
 
-    public List<Vector3> AStar()
-    {
-        List<Vector3> path = new List<Vector3>
-        {
-            new Vector3(0,0,0),
-            new Vector3(10, 0, 0),
-            new Vector3(10, 0, 7.5f),
-            new Vector3(5, 0, 7.5f),
-            new Vector3(5, 0, 3.75f)
-        };
-
-        return path;
-    }
-
     public GameObject CreateNewEnemy()
     {
         GameObject newEnemy = Instantiate(enemyPrefab);
