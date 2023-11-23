@@ -70,6 +70,7 @@ public class BuildManager : MonoBehaviour
                 Destroy(towerShowcase);
             if (towerShowcaseBad != null)
                 Destroy(towerShowcaseBad);
+            WaveManager.Instance.UpdatePath();
         }
     }
 
@@ -94,7 +95,7 @@ public class BuildManager : MonoBehaviour
                     current.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");//turns emmision on for the tile material
                     radiusShowcase.transform.position = current.transform.position;
                     radiusShowcase.Draw(item.ItemPrefab.GetComponent<TowerScript>().towerData.viewDistance);
-                    if (GridManager.Instance.CanPlaceItem(gridX, gridY))
+                    if (GridManager.Instance.CanPlaceItem(gridX, gridY) && WaveManager.Instance.UpdatePath(new Point(gridX,gridY)))
                     {
                         current.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white);
                         towerShowcase.SetActive(true);
@@ -111,12 +112,15 @@ public class BuildManager : MonoBehaviour
                 }
             yield return null;
         }
-        if (GridManager.Instance.PlaceTileItem(gridX, gridY, item))
+        if (WaveManager.Instance.UpdatePath(new Point(gridX, gridY)))
         {
-            Shop.OnPlaceSucces();
+            if (GridManager.Instance.PlaceTileItem(gridX, gridY, item))
+                Shop.OnPlaceSucces();
+            else
+                Debug.LogWarning("Failed to place item because position is not valid (insert sound/screenshake or something to notify the player)");
         }
         else
-            Debug.LogWarning("Failed to place item because position is not valid (insert sound/screenshake or something to notify the player)");
+            Debug.LogWarning("Failed to place item because theres is not a valid path for the enemys (insert sound/screenshake or something to notify the player)");
         current.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");//turns emmision off for the tile material
     }
 }
