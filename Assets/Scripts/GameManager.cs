@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int health;
     [SerializeField]
-    private GridTileItem Base, forest, monsterCave;
+    public GridTileItem Base, forest, monsterCave;
     [SerializeField]
     private Shop towerPlacementManager;
     [SerializeField]

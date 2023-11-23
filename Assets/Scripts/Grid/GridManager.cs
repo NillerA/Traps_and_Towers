@@ -12,6 +12,10 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
     public static GridManager Instance;
 
     [SerializeField]
+    private GridTileItem tileItemToIgnore;
+
+
+    [SerializeField]
     private Grid grid;
     [SerializeField, HideInInspector]
     private GameObject[,] visualTiles = new GameObject[0,0];
@@ -158,6 +162,10 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
     {
         if (x >= 0 && x < GetXGridSize() && y >= 0 && y < GetYGridSize() && grid.Tiles[x, y].GridTileItem == null)
             return false;
+        else if (grid.Tiles[x, y].GridTileItem == GameManager.Instance.Base || grid.Tiles[x, y].GridTileItem == GameManager.Instance.monsterCave)
+        {
+            return false;
+        }
         else
         {
             grid.Tiles[x, y].GridTileItem = null;

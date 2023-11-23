@@ -1,7 +1,9 @@
 using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class TowerSelfDestructScript : MonoBehaviour
 {
@@ -11,13 +13,16 @@ public class TowerSelfDestructScript : MonoBehaviour
 
     private int WaveSpawnedAt;
 
+    private Point towerPoint;
 
-
-    
     void Start()
     {
         
         WaveSpawnedAt = WaveManager.Instance.currentWave;
+
+        (int x, int y) point = GridManager.Instance.WorldToGrid(transform.position);
+        towerPoint =new Point(point.x,point.y);
+
 
     }
 
@@ -25,9 +30,18 @@ public class TowerSelfDestructScript : MonoBehaviour
     {
         if(WaveManager.Instance.currentWave>=WaveSpawnedAt+LifespanInWaves)
         {
-            Destroy(gameObject);
+            
+            List<Point> neighbors=GridManager.Instance.GetGridTileNeiboursPoints(towerPoint);
+
+            
+            foreach(var item in neighbors)
+            {
+
+                GridManager.Instance.RemoveTileItem(item.X, item.Y);
+            }
+
+            GridManager.Instance.RemoveTileItem(towerPoint.X,towerPoint.Y);
         }
-       
     }
 
 
