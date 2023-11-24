@@ -34,21 +34,27 @@ public class EnemyMovement : MonoBehaviour
             else
             {
                 direction.Normalize();
-                gameObject.transform.position += new Vector3((direction.x * stats.speed) * Time.deltaTime, 0, (direction.z * stats.speed) * Time.deltaTime);
+                (int x, int y) currentTile = GridManager.Instance.WorldToGrid(transform.position);
+                float tileSpeed = 1;
+                if(GridManager.Instance.GetGridTile(currentTile.x, currentTile.y).GridTileItem != null)
+                    tileSpeed = GridManager.Instance.GetGridTile(currentTile.x, currentTile.y).GridTileItem.WalkSpeed;
+                gameObject.transform.position += new Vector3((direction.x * stats.speed) * tileSpeed * Time.deltaTime, 0, (direction.z * stats.speed) * tileSpeed * Time.deltaTime);
             }
         }
         else
             WaveManager.Instance.ReachedBase(gameObject);
     }
 
-    public void TakeDamage(int amount)
+    public bool TakeDamage(int amount)
     {
         currentHealth -= amount;
         healthSlider.value = currentHealth;
         if (currentHealth <= 0)
         {
             WaveManager.Instance.ReleaseEnemy(gameObject);
+            return true;
         }
+        return false;
     }
 
     public void setUpEnemy(List<Vector3> newPath, EnemyStats newStats)

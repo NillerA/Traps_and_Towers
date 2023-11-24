@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerScript : MonoBehaviour
+public abstract class TowerScript : MonoBehaviour
 {
-
 
     public Transform target;
 
@@ -16,18 +15,13 @@ public class TowerScript : MonoBehaviour
     [SerializeField]
     private CircleRend shootRadiusDisplay;
 
-
-    void Start()
+    public virtual void Start()
     {
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
         StartCoroutine(ShootLoop());
-
-  
     }
 
-    bool UpdateTarget()
+    private bool UpdateTarget()
     {
-     
         if (WaveManager.Instance.activeEnemies.Count == 0)
         return false;
         float shortestDistance = Mathf.Infinity;
@@ -52,10 +46,9 @@ public class TowerScript : MonoBehaviour
             target = null;
             return false;
         }
-
     }
 
-    private IEnumerator ShootLoop() 
+    public virtual IEnumerator ShootLoop() 
     {
         while (true)
         {
@@ -66,6 +59,7 @@ public class TowerScript : MonoBehaviour
             }
         }
     }
+
 
     private void OnMouseEnter()
     {
