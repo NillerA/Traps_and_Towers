@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int health;
     [SerializeField]
-    private GridTileItem Base, forest, monsterCave;
+    private GridTileItem Base, forest, monsterCave, swamp;
     [SerializeField]
     private Shop towerPlacementManager;
     [SerializeField]
@@ -54,6 +54,11 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 5;)
         {
             if (GridManager.Instance.PlaceTileItem(Random.Range(1, GridManager.Instance.GetXGridSize() - 1), Random.Range(1, GridManager.Instance.GetYGridSize() - 1), forest))
+                i++;
+        }
+        for (int i = 0; i < 5;)
+        {
+            if (GridManager.Instance.PlaceTileItem(Random.Range(1, GridManager.Instance.GetXGridSize() - 1), Random.Range(1, GridManager.Instance.GetYGridSize() - 1), swamp))
                 i++;
         }
     }

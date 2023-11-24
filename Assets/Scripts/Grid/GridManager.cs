@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
 {
@@ -149,6 +148,26 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
             Instantiate(item.ItemPrefab, visualTiles[x,y].transform.position, visualTiles[x,y].transform.rotation, visualTiles[x,y].transform);
             return true;
         }
+        else
+            return false;
+    }
+
+    public bool RemoveTileItem(int x, int y)
+    {
+        if (x >= 0 && x < GetXGridSize() && y >= 0 && y < GetYGridSize() && grid.Tiles[x, y].GridTileItem == null)
+            return false;
+        else
+        {
+            grid.Tiles[x, y].GridTileItem = null;
+            Destroy(visualTiles[x, y].transform.GetChild(1).gameObject);
+            return true;
+        }
+    }
+
+    public bool CanPlaceItem(int x, int y)
+    {
+        if (x >= 0 && x < GetXGridSize() && y >= 0 && y < GetYGridSize() && grid.Tiles[x, y].GridTileItem == null)
+            return true;
         else
             return false;
     }
