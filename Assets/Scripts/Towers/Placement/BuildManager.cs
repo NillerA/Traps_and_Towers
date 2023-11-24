@@ -17,7 +17,7 @@ public class BuildManager : MonoBehaviour
     private GameObject towerStatsDisplay;
     [SerializeField]
     private TextMeshProUGUI towerName, rangeText, damageText, attackSpeedText, attackTypeText;
-    private GameObject towerShowcase;
+    private GameObject towerShowcase, towerShowcaseBad;
     public InputAction mouseDown;
     
     private GameObject current;
@@ -54,16 +54,24 @@ public class BuildManager : MonoBehaviour
     public void StartDrag()
     {
         isDown = true;
-        StartCoroutine(Drag());
         towerShowcase = Instantiate(item.PreviewPrefab, radiusShowcase.transform.position, radiusShowcase.transform.rotation, radiusShowcase.transform);
+        towerShowcaseBad = Instantiate(item.PreviewPrefabBad, radiusShowcase.transform.position, radiusShowcase.transform.rotation, radiusShowcase.transform);
+        towerShowcaseBad.SetActive(false);
+        StartCoroutine(Drag());
     }
 
     public void StopDrag(InputAction.CallbackContext context)
     {
-        isDown = false;
-        radiusShowcase.Hide();
-        if (towerShowcase != null)
-            Destroy(towerShowcase);
+        if (isDown)
+        {
+            isDown = false;
+            radiusShowcase.Hide();
+            if (towerShowcase != null)
+                Destroy(towerShowcase);
+            if (towerShowcaseBad != null)
+                Destroy(towerShowcaseBad);
+            WaveManager.Instance.UpdatePath();
+        }
     }
 
     public IEnumerator Drag()
@@ -71,17 +79,11 @@ public class BuildManager : MonoBehaviour
         (int gridX, int gridY) = (-1, -1);
         while (isDown)
         {
-            //these 2 lines would work if camera was not at an angle
-            //Vector2 mousePos = Input.mousePosition;//gets the mouse position
-            //Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x,mousePos.y,10));//uses simple math to get a position in world space (z coordinate) amount away from camera in the direction under the mouse
-
-            //because of the angle we use these lines instead
             Vector2 mousePos = Input.mousePosition;//gets the mouse position
             Ray ray = Camera.main.ScreenPointToRay(mousePos);//turns the mouse position into a raycast direction
             Vector3 worldPos = -Vector3.one;//creates the worldPos variable and sets it to negative one on all axis so that if we dont hit anything it will not be on tile 0,0
             if (Physics.Raycast(ray, out RaycastHit hitInfo))//checs if theres anything under the mouse in 3d space
                 worldPos = hitInfo.point;//sets worldPos to the point where theres somthing under the mouse
-                                         //Debug.Log(worldPos);//logs the worldPos
 
             (gridX, gridY) = GridManager.Instance.WorldToGrid(worldPos);//turns vector3 worldPos into an x and y codinate on the grid
             if (gridX >= 0 && gridY >= 0 && gridX < GridManager.Instance.GetXGridSize() && gridY < GridManager.Instance.GetYGridSize())//checks if grid coordinate is out of bounds of the grid size
@@ -93,15 +95,32 @@ public class BuildManager : MonoBehaviour
                     current.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");//turns emmision on for the tile material
                     radiusShowcase.transform.position = current.transform.position;
                     radiusShowcase.Draw(item.ItemPrefab.GetComponent<TowerScript>().towerData.viewDistance);
+                    if (GridManager.Instance.CanPlaceItem(gridX, gridY) && WaveManager.Instance.UpdatePath(new Point(gridX,gridY)))
+                    {
+                        current.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white);
+                        towerShowcase.SetActive(true);
+                        towerShowcaseBad.SetActive(false);
+                        radiusShowcase.ChangeColor(Color.white);
+                    }
+                    else
+                    {
+                        towerShowcase.SetActive(false);
+                        towerShowcaseBad.SetActive(true);
+                        current.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
+                        radiusShowcase.ChangeColor(Color.red);
+                    }
                 }
             yield return null;
         }
-        if (GridManager.Instance.PlaceTileItem(gridX, gridY, item))
+        if (WaveManager.Instance.UpdatePath(new Point(gridX, gridY)))
         {
-            Shop.OnPlaceSucces();
+            if (GridManager.Instance.PlaceTileItem(gridX, gridY, item))
+                Shop.OnPlaceSucces();
+            else
+                Debug.LogWarning("Failed to place item because position is not valid (insert sound/screenshake or something to notify the player)");
         }
         else
-            Debug.LogWarning("Failed to place item because position is not valid (insert sound/screenshake or something to notify the player)");
+            Debug.LogWarning("Failed to place item because theres is not a valid path for the enemys (insert sound/screenshake or something to notify the player)");
         current.transform.GetChild(0).GetComponent<Renderer>().material.DisableKeyword("_EMISSION");//turns emmision off for the tile material
     }
 }

@@ -38,4 +38,10 @@ public class CircleRend : MonoBehaviour
     {
         lineRenderer.enabled = false;
     }
+
+    public void ChangeColor(Color color)
+    {
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
+    }
 }
