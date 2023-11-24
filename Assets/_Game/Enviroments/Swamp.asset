@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5d97eb2e4c90714a91ec49ca30d4389, type: 3}
-  m_Name: Meteror Tower
+  m_Script: {fileID: 11500000, guid: dfb19c3214f9c8b4791067cae02aaf90, type: 3}
+  m_Name: Swamp
   m_EditorClassIdentifier: 
-  damage: 1
-  attackSpeed: 4
-  viewDistance: 1.5
-  model: {fileID: 0}
-  bulletPrefab: {fileID: 6428373271242958831, guid: 0a0f9f40ecff40640a6b394b1932cdf3,
+  WalkSpeed: 0.5
+  ItemPrefab: {fileID: 9165894759841232081, guid: 8aa2e20cbe2576448ae1b389bdb3908b,
     type: 3}

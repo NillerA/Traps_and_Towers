@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallSpeed: 5
   damage: 1
-  explotionRange: 2
+  explotionRange: 1
   boomEffect: {fileID: 4860555735136055535}
   meteorVisual: {fileID: 3173568990319349659}
 --- !u!1001 &4914091801120298325

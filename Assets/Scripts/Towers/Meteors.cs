@@ -34,8 +34,9 @@ public class Meteors : MonoBehaviour
         boomEffect.Play();
         for (int i = 0; i < WaveManager.Instance.activeEnemies.Count; i++)
         {
-            if(Vector3.Distance(transform.position, WaveManager.Instance.activeEnemies[i].transform.position) < explotionRange)
-                WaveManager.Instance.activeEnemies[i].GetComponent<EnemyMovement>().TakeDamage(damage);
+            if (Vector3.Distance(transform.position, WaveManager.Instance.activeEnemies[i].transform.position) < explotionRange)
+                if (WaveManager.Instance.activeEnemies[i].GetComponent<EnemyMovement>().TakeDamage(damage))
+                    i--;
         }
         yield return null;
         meteorVisual.SetActive(false);
