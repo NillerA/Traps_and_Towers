@@ -8,7 +8,7 @@ public class TowerScript : MonoBehaviour
 
     public Transform target;
 
-    public TowerAbstractAttack towerAttack = new ArcherTowerAttack();
+    public TowerAbstractAttack towerAttack = new SingleUnitFollow();
     //private float fireCountdown = 0f;
     public TowerData towerData;
 
@@ -17,7 +17,7 @@ public class TowerScript : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        //InvokeRepeating("UpdateTarget", 0f, 0.5f);
         StartCoroutine(ShootLoop());
     }
 

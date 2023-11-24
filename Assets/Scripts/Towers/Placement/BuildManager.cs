@@ -12,7 +12,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField]
     private Shop Shop;
     [SerializeField]
-    private CircleRend radiusShowcase;
+    private CircleRend radiusShowcase, innerLine;
     [SerializeField]
     private GameObject towerStatsDisplay;
     [SerializeField]
@@ -66,6 +66,7 @@ public class BuildManager : MonoBehaviour
         {
             isDown = false;
             radiusShowcase.Hide();
+            innerLine.Hide();
             if (towerShowcase != null)
                 Destroy(towerShowcase);
             if (towerShowcaseBad != null)
@@ -95,12 +96,14 @@ public class BuildManager : MonoBehaviour
                     current.transform.GetChild(0).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");//turns emmision on for the tile material
                     radiusShowcase.transform.position = current.transform.position;
                     radiusShowcase.Draw(item.ItemPrefab.GetComponent<TowerScript>().towerData.viewDistance);
+                    innerLine.Draw(0.5f);
                     if (GridManager.Instance.CanPlaceItem(gridX, gridY) && WaveManager.Instance.UpdatePath(new Point(gridX,gridY)))
                     {
                         current.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white);
                         towerShowcase.SetActive(true);
                         towerShowcaseBad.SetActive(false);
                         radiusShowcase.ChangeColor(Color.white);
+                        innerLine.ChangeColor(Color.white);
                     }
                     else
                     {
@@ -108,6 +111,7 @@ public class BuildManager : MonoBehaviour
                         towerShowcaseBad.SetActive(true);
                         current.transform.GetChild(0).GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.red);
                         radiusShowcase.ChangeColor(Color.red);
+                        innerLine.ChangeColor(Color.red);
                     }
                 }
             yield return null;
