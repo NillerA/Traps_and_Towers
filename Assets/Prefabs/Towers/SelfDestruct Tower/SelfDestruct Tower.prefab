@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8373934595075386436}
   - component: {fileID: 1223979020517264568}
-  - component: {fileID: -911252991386231539}
+  - component: {fileID: 7182437564863440710}
   - component: {fileID: -2541804248899433416}
   m_Layer: 0
   m_Name: SelfDestruct Tower
@@ -58,7 +58,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.85, z: 0.5}
   m_Center: {x: 0, y: 0.425, z: 0}
---- !u!114 &-911252991386231539
+--- !u!114 &7182437564863440710
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,13 +67,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 262465377119594039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f42f602cd5e6fd84c9964f4ef1714665, type: 3}
+  m_Script: {fileID: 11500000, guid: 63d990b9da6140e41a0a95b551d16ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   towerData: {fileID: 11400000, guid: ac101a92690006441871550a8109f405, type: 2}
-  shootRadiusDisplay: {fileID: 5743201487580030245, guid: f8ca134a32f978148a73af1bb85e6918,
-    type: 3}
+  shootRadiusDisplay: {fileID: 2885544894798452594}
 --- !u!114 &-2541804248899433416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +299,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8ca134a32f978148a73af1bb85e6918, type: 3}
+--- !u!114 &2885544894798452594 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5743201487580030245, guid: f8ca134a32f978148a73af1bb85e6918,
+    type: 3}
+  m_PrefabInstance: {fileID: 7473847387699851863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef5ff0e2d6d15444a5cef099ed8434b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9091604636648784562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1843008703681949925, guid: f8ca134a32f978148a73af1bb85e6918,

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: SelfDestruct Tower
   m_EditorClassIdentifier: 
   WalkSpeed: 0
-  ItemPrefab: {fileID: 1634718483713813621, guid: f7385283a1407de4883e2756e5efa938,
+  ItemPrefab: {fileID: 262465377119594039, guid: f7385283a1407de4883e2756e5efa938,
     type: 3}
   PreviewPrefab: {fileID: 1634718483713813621, guid: 23cd6e3d98987ed4396dc5fec1c81ef2,
     type: 3}
+  PreviewPrefabBad: {fileID: 0}
