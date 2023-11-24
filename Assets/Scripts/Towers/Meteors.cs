@@ -1,32 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Meteors : MonoBehaviour
 {
-    public float fuseTime;
+    public float fuseTime = 2;
     public int damage = 1;
+    [SerializeField]
+    private VisualEffect boomEffect;
 
-    void Explode()
-    {
-        
-        //var exp = GetComponent<ParticleSystem>();
-        //exp.Play();
-        Destroy(gameObject);
-    }
     private void Start()
     {
-        Invoke("Explode", fuseTime);
+        //Explode();
+        StartCoroutine(Explode());
     }
-
 
     void OnCollisionEnter(Collision coll)
     {
-        Explode();
+        StartCoroutine(Explode());
     }
-    // Update is called once per frame
-    void Update()
+
+    IEnumerator Explode()
     {
-        
+        yield return new WaitForSeconds(fuseTime);
+        boomEffect.Play();
+        yield return null;
+        while (boomEffect.HasAnySystemAwake())
+        {
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 }
