@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d97eb2e4c90714a91ec49ca30d4389, type: 3}
   m_Name: Meteror Tower
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 4
   attackSpeed: 1
   viewDistance: 2
   model: {fileID: 0}

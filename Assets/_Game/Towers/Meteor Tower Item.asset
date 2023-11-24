@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Meteor Tower Item
   m_EditorClassIdentifier: 
   WalkSpeed: 0
-  ItemPrefab: {fileID: 1634718483713813621, guid: c4700f19164c2334c8f8bc0b8cfa8c80,
+  ItemPrefab: {fileID: 2854375153941109592, guid: 8c35b5f83811cf145bac7b5476958fbd,
     type: 3}
   PreviewPrefab: {fileID: 1634718483713813621, guid: 23cd6e3d98987ed4396dc5fec1c81ef2,
     type: 3}
