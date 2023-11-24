@@ -2679,7 +2679,7 @@ GameObject:
   - component: {fileID: 213298893}
   - component: {fileID: 213298892}
   m_Layer: 5
-  m_Name: BarrierTurret
+  m_Name: MeteorTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9841,7 +9841,7 @@ GameObject:
   - component: {fileID: 1048804680}
   - component: {fileID: 1048804679}
   m_Layer: 5
-  m_Name: RangeTurret
+  m_Name: ArcherTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

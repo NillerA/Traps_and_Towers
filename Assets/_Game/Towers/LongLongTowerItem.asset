@@ -15,5 +15,7 @@ MonoBehaviour:
   WalkSpeed: 0
   ItemPrefab: {fileID: 1634718483713813621, guid: 3bf8b5cb6648b5b428c7045f9e9fdbe8,
     type: 3}
-  PreviewPrefab: {fileID: 1634718483713813621, guid: 6baa5ac91c108594ea3ce91088755e1f,
+  PreviewPrefab: {fileID: 1634718483713813621, guid: 23cd6e3d98987ed4396dc5fec1c81ef2,
+    type: 3}
+  PreviewPrefabBad: {fileID: 1634718483713813621, guid: bde85dd102c1de64ca950724bd75e25d,
     type: 3}
