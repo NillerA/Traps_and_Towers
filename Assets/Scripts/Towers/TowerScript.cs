@@ -38,19 +38,13 @@ public abstract class TowerScript : MonoBehaviour
                 shortestDistance = distanceToEnemy;
                 nearestEnemy = enemy;
 
-                if(distanceToEnemy<=towerData.viewDistance&&enemy.GetComponent<EnemyMovement>().stats.Taunt==true)
+                if(distanceToEnemy<=towerData.viewDistance && enemy.GetComponent<EnemyMovement>().stats.Taunt==true)
                 {
                     towerTaunted = true;
                 }
             }
 
-            //if (distanceToEnemy <= towerData.viewDistance && enemy.GetComponent<EnemyStats>().Taunt == true)
-            //{
-            //    shortestDistance = distanceToEnemy;
-            //    nearestEnemy = enemy;
-            //    towerTaunted = true;
-            //}
-
+          
         }
        
 
