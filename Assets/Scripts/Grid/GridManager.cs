@@ -144,6 +144,36 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
         return (-1,-1);
     }
 
+    public Point WorldToGridPoint(Vector3 worldCoord)
+    {
+        float worldX = worldCoord.x;
+        float worldY = worldCoord.z;
+        int gridxFast;
+        int gridYFast;
+        worldY /= 0.75f;
+        gridYFast = (int)worldY;
+        if (gridYFast % 2 != 0)
+            worldX += 0.5f;
+        gridxFast = (int)worldX;
+        if (gridxFast >= 0 && gridxFast < GetXGridSize() && gridYFast >= 0 && gridYFast < GetYGridSize())
+        {
+            List<Point> gridPoints = GetGridTileNeiboursPoints(new Point(gridxFast, gridYFast));
+            Point closestPoint = new Point(gridxFast, gridYFast);
+            float closestDistance = Vector3.Distance(worldCoord, visualTiles[closestPoint.X, closestPoint.Y].transform.position);
+            foreach (Point p in gridPoints)
+            {
+                float dist = Vector3.Distance(worldCoord, visualTiles[p.X, p.Y].transform.position);
+                if (dist < closestDistance)
+                {
+                    closestPoint = p;
+                    closestDistance = dist;
+                }
+            }
+            return closestPoint;
+        }
+        return new Point(-1, -1);
+    }
+
     public bool PlaceTileItem(int x, int y, GridTileItem item)
     {
         if(x >= 0 && x < GetXGridSize() && y >= 0 && y < GetYGridSize() && grid.Tiles[x, y].GridTileItem == null)
