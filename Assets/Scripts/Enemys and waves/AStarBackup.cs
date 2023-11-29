@@ -40,7 +40,7 @@ public class AStarBackup : MonoBehaviour
             {
                 if (GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.gCost + 10 < GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.gCost)
                 {
-                    if (GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem != null && GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).GridTileItem.WalkSpeed == 0)
+                    if (GridManager.Instance.IsWalkable(neighbours[i]))
                         continue;
 
                     GridManager.Instance.GetGridTile(neighbours[i].X, neighbours[i].Y).AStarInfo.cameFrom = current;//new Point(GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.xCord, GridManager.Instance.GetGridTile(current.X, current.Y).AStarInfo.yCord);
