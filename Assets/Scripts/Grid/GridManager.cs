@@ -212,9 +212,11 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
 
     public bool IsWalkable(Point tile)
     {
-        if(GetGridTile(tile.X, tile.Y).GridTileItem != null && GetGridTile(tile.X, tile.Y).GridTileItem.WalkSpeed == 0)
+        if (GetGridTile(tile.X, tile.Y).GridTileItem == null)
             return true;
-        return false;
+        if(GetGridTile(tile.X, tile.Y).GridTileItem != null && GetGridTile(tile.X, tile.Y).GridTileItem.WalkSpeed == 0)
+            return false;
+        return true;
     }
 
     public void SetTileType(int x, int y, GridTile.TileTypes tileType)
