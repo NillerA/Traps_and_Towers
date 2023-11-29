@@ -18904,6 +18904,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 546a85b96191f7c4a97ffa82ff67a9b6, type: 2}
   - {fileID: 11400000, guid: 98bb757d8978ed44b921d26fc02f2098, type: 2}
   - {fileID: 11400000, guid: 08d472fe261745b4d83d3ef830529b45, type: 2}
+  - {fileID: 11400000, guid: b70d93f9d0fe71f4cb084b79fa7ef195, type: 2}
+  - {fileID: 11400000, guid: 520022b11d1649244ae5904fc830cfc9, type: 2}
+  - {fileID: 11400000, guid: 8d062e30af0a0434fb80f69c8e9ce79a, type: 2}
+  - {fileID: 11400000, guid: 1ff7b53bc809bc44f9597d9a8804bd4d, type: 2}
+  - {fileID: 11400000, guid: e7d6b5b0150abd043a85da80d9cdae7c, type: 2}
   wavesLeftText: {fileID: 1744667351}
   currentWave: 0
   activeEnemies: []

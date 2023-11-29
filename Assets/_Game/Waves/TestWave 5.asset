@@ -16,3 +16,6 @@ MonoBehaviour:
   - enemyType: {fileID: 11400000, guid: ab4dfa49a56e2bb4eb5a1c16ec66355e, type: 2}
     spawnAmount: 20
     SpawnRate: 0.5
+  - enemyType: {fileID: 11400000, guid: a3aa916c7119bd84aae0d060b2569b77, type: 2}
+    spawnAmount: 1
+    SpawnRate: 5

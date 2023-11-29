@@ -16,6 +16,7 @@ MonoBehaviour:
   damage: 2
   speed: 1
   Taunt: 0
-  EnemySpawnOnDeath: {fileID: 11400000, guid: ab4dfa49a56e2bb4eb5a1c16ec66355e, type: 2}
+  EnemySpawnAmount: 5
+  EnemySpawnOnDeath: {fileID: 11400000, guid: ec9cf87f6d42ad44f90fc280d804dc2a, type: 2}
   enemyvisualPrefab: {fileID: 9099545404102310525, guid: d49315212d2e8b147ad8ca36df324c54,
     type: 3}

@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   damage: 1
-  speed: 0.2
+  speed: 0.75
   Taunt: 1
-  enemyvisualPrefab: {fileID: 0}
+  EnemySpawnAmount: 0
+  EnemySpawnOnDeath: {fileID: 0}
+  enemyvisualPrefab: {fileID: 1128692890748019617, guid: 431afba994687f645a516c4ec08ec1b3,
+    type: 3}

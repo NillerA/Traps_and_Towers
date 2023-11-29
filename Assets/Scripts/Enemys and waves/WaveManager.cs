@@ -68,25 +68,51 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator Wave()
     {
-        for (int x = 0; x < Waves[currentWave].waveStatsList.Count; x++)
+        float waveSpawnTimer = 0;
+        List<float> spawnTimes = new List<float>();
+        List<int> spawnedEnemies = new List<int>();
+        int enemysToSpawn = 0;
+        int spawnedEnemiesAmount = 0;
+        for (int i = 0; i < Waves[currentWave].waveStatsList.Count; i++)
         {
-            for (int i = 0; i < Waves[currentWave].waveStatsList[x].spawnAmount; i++)
-            {
-                yield return new WaitForSeconds(Waves[currentWave].waveStatsList[x].SpawnRate);
-
-                //TODO: add a way to spawn the different enemys at once (EnemySpawnInfo)
-                GameObject spawnedEnemy = GetEnemy();
-                spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(currentPath, Waves[currentWave].waveStatsList[x].enemyType);
-                activeEnemies.Add(spawnedEnemy);
-                spawnedEnemy.SetActive(true);
-            }
+            spawnTimes.Add(0);
+            spawnedEnemies.Add(0);
+            enemysToSpawn += Waves[currentWave].waveStatsList[i].spawnAmount;
         }
-      
+        while (!waveSpawningDone)
+        {
+            waveSpawnTimer += Time.deltaTime;
+            for (int i = 0; i < Waves[currentWave].waveStatsList.Count; i++)
+            {
+                if (spawnedEnemies[i] < Waves[currentWave].waveStatsList[i].spawnAmount && spawnTimes[i] < waveSpawnTimer)
+                {
+                    spawnTimes[i] += Waves[currentWave].waveStatsList[i].SpawnRate;
+                    spawnedEnemies[i]++;
+                    spawnedEnemiesAmount++;
+                    GameObject spawnedEnemy = GetEnemy();
+                    spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(currentPath, Waves[currentWave].waveStatsList[i].enemyType);
+                    activeEnemies.Add(spawnedEnemy);
+                    spawnedEnemy.SetActive(true);
+                }
+            }
+            if(enemysToSpawn <= spawnedEnemiesAmount)
+                waveSpawningDone = true;
+            yield return null;
+        }
+        //for (int x = 0; x < Waves[currentWave].waveStatsList.Count; x++)
+        //{
+        //    for (int i = 0; i < Waves[currentWave].waveStatsList[x].spawnAmount; i++)
+        //    {
+        //        yield return new WaitForSeconds(Waves[currentWave].waveStatsList[x].SpawnRate);
 
-        waveSpawningDone = true;
+        //        //TODO: add a way to spawn the different enemys at once (EnemySpawnInfo)
+        //        GameObject spawnedEnemy = GetEnemy();
+        //        spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(currentPath, Waves[currentWave].waveStatsList[x].enemyType);
+        //        activeEnemies.Add(spawnedEnemy);
+        //        spawnedEnemy.SetActive(true);
+        //    }
+        //}
     }
-
-    
 
     public GameObject CreateNewEnemy()
     {

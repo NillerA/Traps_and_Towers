@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18dbd85ededaa304b801b2566fec1b69, type: 3}
   m_Name: Baby Spider
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  damage: 0
-  speed: 0
+  maxHealth: 1
+  damage: 1
+  speed: 2
   Taunt: 0
+  EnemySpawnAmount: 0
   EnemySpawnOnDeath: {fileID: 0}
-  enemyvisualPrefab: {fileID: 0}
+  enemyvisualPrefab: {fileID: 9099545404102310525, guid: d49315212d2e8b147ad8ca36df324c54,
+    type: 3}

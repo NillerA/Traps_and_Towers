@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c96f81efc8671548a65bb31de5321af, type: 3}
-  m_Name: TestWave 4
+  m_Name: TestWave 9
   m_EditorClassIdentifier: 
   waveStatsList:
-  - enemyType: {fileID: 11400000, guid: ab4dfa49a56e2bb4eb5a1c16ec66355e, type: 2}
-    spawnAmount: 10
-    SpawnRate: 0.5
-  - enemyType: {fileID: 11400000, guid: a3aa916c7119bd84aae0d060b2569b77, type: 2}
+  - enemyType: {fileID: 11400000, guid: 8abf8ba346e81af4b9af0083799ed269, type: 2}
     spawnAmount: 1
-    SpawnRate: 2
+    SpawnRate: 0
