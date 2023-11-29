@@ -9,6 +9,7 @@ public class EnemyStats : ScriptableObject
     public int maxHealth;
     public int damage;
     public int speed;
+    public bool Taunt = false;
     public GameObject enemyvisualPrefab;
 
 }
