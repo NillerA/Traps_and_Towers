@@ -68,18 +68,25 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator Wave()
     {
-        for (int i = 0; i < Waves[currentWave].waveStatsList[0].spawnAmount; i++)
+        for (int x = 0; x < Waves[currentWave].waveStatsList.Count; x++)
         {
-            yield return new WaitForSeconds(Waves[currentWave].waveStatsList[0].SpawnRate);
+            for (int i = 0; i < Waves[currentWave].waveStatsList[x].spawnAmount; i++)
+            {
+                yield return new WaitForSeconds(Waves[currentWave].waveStatsList[x].SpawnRate);
 
-            //TODO: add a way to spawn the different enemys at once (EnemySpawnInfo)
-            GameObject spawnedEnemy = GetEnemy();
-            spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(currentPath, Waves[currentWave].waveStatsList[0].enemyType);
-            activeEnemies.Add(spawnedEnemy);
-            spawnedEnemy.SetActive(true);
+                //TODO: add a way to spawn the different enemys at once (EnemySpawnInfo)
+                GameObject spawnedEnemy = GetEnemy();
+                spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(currentPath, Waves[currentWave].waveStatsList[x].enemyType);
+                activeEnemies.Add(spawnedEnemy);
+                spawnedEnemy.SetActive(true);
+            }
         }
+      
+
         waveSpawningDone = true;
     }
+
+    
 
     public GameObject CreateNewEnemy()
     {
@@ -149,4 +156,15 @@ public class WaveManager : MonoBehaviour
             pathLineRend.SetPosition(i, currentPath[i] + new Vector3(0, 0.15f, 0));
         return true;
     }
+}
+
+public class enemySpawner
+{
+    public enemySpawner()
+    {
+
+    }
+
+   
+
 }

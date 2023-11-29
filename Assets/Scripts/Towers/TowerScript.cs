@@ -15,6 +15,7 @@ public abstract class TowerScript : MonoBehaviour
     [SerializeField]
     private CircleRend shootRadiusDisplay;
 
+    private bool towerTaunted=false;
     public virtual void Start()
     {
         StartCoroutine(ShootLoop());
@@ -26,16 +27,35 @@ public abstract class TowerScript : MonoBehaviour
         return false;
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
+
+        towerTaunted = false;
         foreach (GameObject enemy in WaveManager.Instance.activeEnemies)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
 
-            if (distanceToEnemy < shortestDistance)
+            if (distanceToEnemy < shortestDistance && towerTaunted==false)
             {
                 shortestDistance = distanceToEnemy;
                 nearestEnemy = enemy;
+
+                if(distanceToEnemy<=towerData.viewDistance&&enemy.GetComponent<EnemyMovement>().stats.Taunt==true)
+                {
+                    towerTaunted = true;
+                }
             }
+
+            //if (distanceToEnemy <= towerData.viewDistance && enemy.GetComponent<EnemyStats>().Taunt == true)
+            //{
+            //    shortestDistance = distanceToEnemy;
+            //    nearestEnemy = enemy;
+            //    towerTaunted = true;
+            //}
+
         }
+       
+
+        
+
         if (nearestEnemy != null && shortestDistance <= towerData.viewDistance)
         {
             target = nearestEnemy.transform;
