@@ -10,6 +10,8 @@ public class EnemyStats : ScriptableObject
     public int damage;
     public int speed;
     public bool Taunt = false;
+    public int EnemySpawnAmount;
+    public EnemyStats EnemySpawnOnDeath;
     public GameObject enemyvisualPrefab;
 
 }

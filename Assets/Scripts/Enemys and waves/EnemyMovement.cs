@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,12 +50,33 @@ public class EnemyMovement : MonoBehaviour
         healthSlider.value = currentHealth;
         if (currentHealth <= 0)
         {
+            if(stats.EnemySpawnOnDeath != null)
+                SpawnEnemyOnDeath(path, stats.EnemySpawnOnDeath);
             WaveManager.Instance.ReleaseEnemy(gameObject);
             return true;
         }
         return false;
     }
+    public void SpawnEnemyOnDeath(List<Vector3> newPath, EnemyStats newStats)
+    {
+        List<Vector3>SpawnPositions = new List<Vector3>();
+        List<Point>neighbourTiles = GridManager.Instance.GetGridTileNeiboursPoints(GridManager.Instance.WorldToGridPoint(transform.position));
+        foreach (Point neighbourTile in neighbourTiles)
+        {
+            if (GridManager.Instance.IsWalkable(neighbourTile)) 
+                SpawnPositions.Add(GridManager.Instance.GridToWorld(neighbourTile.X, neighbourTile.Y));
+        }
+        for (int i = 0; i < stats.EnemySpawnAmount; i++)
+        {
+            GameObject spawnedEnemy = WaveManager.Instance.GetEnemy();
+            spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(newPath, newStats);
+            spawnedEnemy.GetComponent<EnemyMovement>().currentPathTarget = currentPathTarget;
+            spawnedEnemy.transform.position = SpawnPositions[Random.Range(0,SpawnPositions.Count)];
+            WaveManager.Instance.activeEnemies.Add(spawnedEnemy);
 
+            spawnedEnemy.SetActive(true);
+        }
+    }
     public void setUpEnemy(List<Vector3> newPath, EnemyStats newStats)
     {
         currentPathTarget = 0;
@@ -78,5 +98,8 @@ public class EnemyMovement : MonoBehaviour
         if (enemyVisual != null)
             Destroy(enemyVisual);
         enemyVisual = Instantiate(stats.enemyvisualPrefab, transform.position, transform.rotation, transform);
+
+        
+
     }
 }
