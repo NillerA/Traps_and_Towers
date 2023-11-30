@@ -15,4 +15,4 @@ MonoBehaviour:
   WalkSpeed: 0
   ItemPrefab: {fileID: 9165894759841232081, guid: 6fc8a15d4e5828046916cc67290feb2a,
     type: 3}
-  description: It's a thick forest nobody can get threw
+  description: It's a thick forest nobody can get through

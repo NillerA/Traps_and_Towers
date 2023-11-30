@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5d97eb2e4c90714a91ec49ca30d4389, type: 3}
-  m_Name: LongLong TowerData
+  m_Name: SelfDestruct Tower
   m_EditorClassIdentifier: 
   damage: 2
-  attackSpeed: 5
-  viewDistance: 7
+  attackSpeed: 1
+  viewDistance: 2
   attackType: Single
-  description: if we had sniper this would be it
+  description: is a archer tower but better and explodes after two rounds (takes
+    stuff close to it whith it down)
