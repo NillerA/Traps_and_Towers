@@ -51,13 +51,14 @@ public class EnemyMovement : MonoBehaviour
         if (currentHealth <= 0)
         {
             if(stats.EnemySpawnOnDeath != null)
-                SpawnEnemyOnDeath(path, stats.EnemySpawnOnDeath);
+                SpawnEnemyOnDeath(stats.EnemySpawnOnDeath);
             WaveManager.Instance.ReleaseEnemy(gameObject);
             return true;
         }
         return false;
     }
-    public void SpawnEnemyOnDeath(List<Vector3> newPath, EnemyStats newStats)
+
+    public void SpawnEnemyOnDeath(EnemyStats newStats)
     {
         List<Vector3>SpawnPositions = new List<Vector3>();
         List<Point>neighbourTiles = GridManager.Instance.GetGridTileNeiboursPoints(GridManager.Instance.WorldToGridPoint(transform.position));
@@ -69,14 +70,12 @@ public class EnemyMovement : MonoBehaviour
         for (int i = 0; i < stats.EnemySpawnAmount; i++)
         {
             GameObject spawnedEnemy = WaveManager.Instance.GetEnemy();
-            spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(newPath, newStats);
-            spawnedEnemy.GetComponent<EnemyMovement>().currentPathTarget = currentPathTarget;
-            spawnedEnemy.transform.position = SpawnPositions[Random.Range(0,SpawnPositions.Count)];
+            spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(AStarBackup.instance.GetPath(GridManager.Instance.WorldToGridPoint(SpawnPositions[Random.Range(0, SpawnPositions.Count)]), new Point(4,4)), newStats);
             WaveManager.Instance.activeEnemies.Add(spawnedEnemy);
-
             spawnedEnemy.SetActive(true);
         }
     }
+
     public void setUpEnemy(List<Vector3> newPath, EnemyStats newStats)
     {
         currentPathTarget = 0;
@@ -94,12 +93,8 @@ public class EnemyMovement : MonoBehaviour
         healthBarSeperators = new List<GameObject>();
         for (int i = 1; i < stats.maxHealth; i++) 
             healthBarSeperators.Add(Instantiate(healthBarSeperator, healthBarSeperator.transform.parent));
-
         if (enemyVisual != null)
             Destroy(enemyVisual);
         enemyVisual = Instantiate(stats.enemyvisualPrefab, transform.position, transform.rotation, transform);
-
-        
-
     }
 }

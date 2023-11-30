@@ -5,7 +5,14 @@ using UnityEngine;
 public class AStarBackup : MonoBehaviour
 {
 
+    public static AStarBackup instance;
+
     Point goal;
+
+    AStarBackup()
+    {
+        instance = this;
+    }
 
     public List<Vector3> GetPath(Point startPos, Point endPos)
     {

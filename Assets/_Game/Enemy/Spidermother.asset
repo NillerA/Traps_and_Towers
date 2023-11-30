@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18dbd85ededaa304b801b2566fec1b69, type: 3}
   m_Name: Spidermother
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  damage: 2
+  maxHealth: 10
+  damage: 6
   speed: 1
   Taunt: 0
   EnemySpawnAmount: 5

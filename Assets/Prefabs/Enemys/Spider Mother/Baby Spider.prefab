@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3770427638048620087}
   m_Layer: 0
-  m_Name: Spider Mother
+  m_Name: Baby Spider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,17 +43,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: eed313feff11b324a8456b1efc00146a,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.75
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eed313feff11b324a8456b1efc00146a,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.75
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eed313feff11b324a8456b1efc00146a,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.75
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eed313feff11b324a8456b1efc00146a,
         type: 3}
