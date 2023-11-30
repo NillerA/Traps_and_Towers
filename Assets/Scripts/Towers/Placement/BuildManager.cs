@@ -16,7 +16,11 @@ public class BuildManager : MonoBehaviour
     [SerializeField]
     private GameObject towerStatsDisplay;
     [SerializeField]
-    private TextMeshProUGUI towerName, rangeText, damageText, attackSpeedText, attackTypeText;
+    private TextMeshProUGUI towerName, rangeText, damageText, attackSpeedText, attackTypeText, descriptionText;
+    [SerializeField]
+    GameObject tileStatsDisplay;
+    [SerializeField]
+    private TextMeshProUGUI tileNameText, tileWalkSpeedText, tileDescriptionText;
     private GameObject towerShowcase, towerShowcaseBad;
     public InputAction mouseDown;
     
@@ -24,6 +28,8 @@ public class BuildManager : MonoBehaviour
     [HideInInspector]
     public TowerItem item;
     private bool isDown;
+
+    Coroutine drag;
 
     BuildManager() 
     {
@@ -36,14 +42,15 @@ public class BuildManager : MonoBehaviour
         mouseDown.canceled += StopDrag;
     }
 
-    public void ShowStatsDisplay(TowerData towerData)
+    public void ShowTowerStatsDisplay(TowerData towerData)
     {
         towerStatsDisplay.SetActive(true);
         towerName.text = towerData.name;
         rangeText.text = towerData.viewDistance.ToString();
         damageText.text = towerData.damage.ToString();
         attackSpeedText.text = towerData.attackSpeed.ToString();
-        attackTypeText.text = "Single";
+        attackTypeText.text = towerData.attackType;
+        descriptionText.text = towerData.description;
     }
 
     public void HideStatsDisplay()
@@ -51,13 +58,28 @@ public class BuildManager : MonoBehaviour
         towerStatsDisplay.SetActive(false);
     }
 
+    public void ShowTileStatsDisplay(GridTileItem item)
+    {
+        tileStatsDisplay.gameObject.SetActive(true);
+        tileNameText.text = item.name;
+        tileWalkSpeedText.text = item.WalkSpeed.ToString();
+        tileDescriptionText.text = item.description;
+    }
+
+    public void HideTileStatsDisplay()
+    {
+        tileStatsDisplay.SetActive(false);
+    }
+
     public void StartDrag()
     {
+        if (drag != null)
+            StopCoroutine(drag);
         isDown = true;
         towerShowcase = Instantiate(item.PreviewPrefab, radiusShowcase.transform.position, radiusShowcase.transform.rotation, radiusShowcase.transform);
         towerShowcaseBad = Instantiate(item.PreviewPrefabBad, radiusShowcase.transform.position, radiusShowcase.transform.rotation, radiusShowcase.transform);
         towerShowcaseBad.SetActive(false);
-        StartCoroutine(Drag());
+        drag = StartCoroutine(Drag());
     }
 
     public void StopDrag(InputAction.CallbackContext context)

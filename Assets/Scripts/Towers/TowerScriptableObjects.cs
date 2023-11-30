@@ -9,12 +9,11 @@ using UnityEngine;
 public class TowerData : ScriptableObject
 {
 
-    [Range(0, 100)]
+    [Range(0, 10)]
     public int damage;
-    [Range(0,100)]
+    [Range(0,10)]
     public float attackSpeed,viewDistance;
-
-
-    public GameObject model, bulletPrefab;
+    public string attackType = "Single";
+    public string description = "description of Tower";
 
 }

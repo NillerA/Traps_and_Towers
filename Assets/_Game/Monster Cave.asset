@@ -15,3 +15,4 @@ MonoBehaviour:
   WalkSpeed: 1
   ItemPrefab: {fileID: 4370800720566409357, guid: 3b3dcf6984b4ad447b1b1f65e1a6bba8,
     type: 3}
+  description: Monster somtimes comes from here to attack your castle

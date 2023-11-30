@@ -21,27 +21,35 @@ public class EnemyMovement : MonoBehaviour
     private List<Vector3> path = new List<Vector3>();
     private Vector3 direction;
     GameObject enemyVisual;
+    Coroutine walking;
 
-    void Update()
+    IEnumerator PathMovement()
     {
-        if (currentPathTarget < path.Count)
+        while (true)
         {
-            direction = new Vector3(path[currentPathTarget].x - gameObject.transform.position.x,0, path[currentPathTarget].z - gameObject.transform.position.z);
+            if (currentPathTarget < path.Count)
+            {
+                direction = new Vector3(path[currentPathTarget].x - gameObject.transform.position.x,0, path[currentPathTarget].z - gameObject.transform.position.z);
 
-            if (direction.magnitude <= 0.1f)
-                currentPathTarget += 1;
+                if (direction.magnitude <= 0.1f)
+                    currentPathTarget += 1;
+                else
+                {
+                    direction.Normalize();
+                    (int x, int y) currentTile = GridManager.Instance.WorldToGrid(transform.position);
+                    float tileSpeed = 1;
+                    if(GridManager.Instance.GetGridTile(currentTile.x, currentTile.y).GridTileItem != null)
+                        tileSpeed = GridManager.Instance.GetGridTile(currentTile.x, currentTile.y).GridTileItem.WalkSpeed;
+                    gameObject.transform.position += new Vector3((direction.x * stats.speed) * tileSpeed * Time.deltaTime, 0, (direction.z * stats.speed) * tileSpeed * Time.deltaTime);
+                }
+            }
             else
             {
-                direction.Normalize();
-                (int x, int y) currentTile = GridManager.Instance.WorldToGrid(transform.position);
-                float tileSpeed = 1;
-                if(GridManager.Instance.GetGridTile(currentTile.x, currentTile.y).GridTileItem != null)
-                    tileSpeed = GridManager.Instance.GetGridTile(currentTile.x, currentTile.y).GridTileItem.WalkSpeed;
-                gameObject.transform.position += new Vector3((direction.x * stats.speed) * tileSpeed * Time.deltaTime, 0, (direction.z * stats.speed) * tileSpeed * Time.deltaTime);
+                WaveManager.Instance.ReachedBase(gameObject);
+                break;
             }
+            yield return null;
         }
-        else
-            WaveManager.Instance.ReachedBase(gameObject);
     }
 
     public bool TakeDamage(int amount)
@@ -53,6 +61,7 @@ public class EnemyMovement : MonoBehaviour
             if(stats.EnemySpawnOnDeath != null)
                 SpawnEnemyOnDeath(stats.EnemySpawnOnDeath);
             WaveManager.Instance.ReleaseEnemy(gameObject);
+            StopCoroutine(walking);
             return true;
         }
         return false;
@@ -73,6 +82,7 @@ public class EnemyMovement : MonoBehaviour
             spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(AStarBackup.instance.GetPath(GridManager.Instance.WorldToGridPoint(SpawnPositions[Random.Range(0, SpawnPositions.Count)]), new Point(4,4)), newStats);
             WaveManager.Instance.activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.SetActive(true);
+            spawnedEnemy.GetComponent<EnemyMovement>().StartEnemy();
         }
     }
 
@@ -96,5 +106,12 @@ public class EnemyMovement : MonoBehaviour
         if (enemyVisual != null)
             Destroy(enemyVisual);
         enemyVisual = Instantiate(stats.enemyvisualPrefab, transform.position, transform.rotation, transform);
+    }
+
+    public void StartEnemy()
+    {
+        if(walking != null)
+            StopCoroutine(walking);
+        walking = StartCoroutine(PathMovement());
     }
 }

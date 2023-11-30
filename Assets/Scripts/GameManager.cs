@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         towerPlacementManager.CanPlaceTurret();
+        healthText.text = health.ToString();
     }
 
     bool lost;//midlertidlig

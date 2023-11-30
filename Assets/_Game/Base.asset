@@ -15,3 +15,4 @@ MonoBehaviour:
   WalkSpeed: 1
   ItemPrefab: {fileID: 1388918323949290718, guid: 84bdbeb971b6f7b4faede2e600e77dc5,
     type: 3}
+  description: It's your castle u must protect it

@@ -9,5 +9,7 @@ public abstract class GridTileItem : ScriptableObject
     public float WalkSpeed = 0;
     [Tooltip("The prefab shown on the tile")]
     public GameObject ItemPrefab;
+    [Tooltip("a short description of the tile")]
+    public string description = "description of Tile";
 
 }

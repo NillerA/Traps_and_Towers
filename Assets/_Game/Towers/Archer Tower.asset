@@ -15,5 +15,5 @@ MonoBehaviour:
   damage: 1
   attackSpeed: 1
   viewDistance: 2
-  model: {fileID: 0}
-  bulletPrefab: {fileID: 0}
+  attackType: Single
+  description: a standard archer tower

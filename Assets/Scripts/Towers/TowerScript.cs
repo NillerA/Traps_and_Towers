@@ -7,15 +7,11 @@ public abstract class TowerScript : MonoBehaviour
 {
 
     public Transform target;
-
     public TowerAbstractAttack towerAttack = new ArcherTowerAttack();
-    //private float fireCountdown = 0f;
     public TowerData towerData;
 
     [SerializeField]
     private CircleRend shootRadiusDisplay;
-
-    private bool towerTaunted=false;
     public virtual void Start()
     {
         StartCoroutine(ShootLoop());
@@ -27,34 +23,36 @@ public abstract class TowerScript : MonoBehaviour
         return false;
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
+        bool towerTaunted = false;
 
-        towerTaunted = false;
         foreach (GameObject enemy in WaveManager.Instance.activeEnemies)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
 
-            if (distanceToEnemy < shortestDistance && towerTaunted==false)
+            if (distanceToEnemy < towerData.viewDistance)
             {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
-
-                if(distanceToEnemy<=towerData.viewDistance&&enemy.GetComponent<EnemyMovement>().stats.Taunt==true)
+                if (distanceToEnemy < shortestDistance)
                 {
+                    if(enemy.GetComponent<EnemyMovement>().stats.Taunt == true)
+                    {
+                        shortestDistance = distanceToEnemy;
+                        nearestEnemy = enemy;
+                        towerTaunted = true;
+                    }
+                    else if (towerTaunted == false)
+                    {
+                        shortestDistance = distanceToEnemy;
+                        nearestEnemy = enemy;
+                    }
+                }
+                else if(enemy.GetComponent<EnemyMovement>().stats.Taunt == true && towerTaunted == false)
+                {
+                    shortestDistance = distanceToEnemy;
+                    nearestEnemy = enemy;
                     towerTaunted = true;
                 }
             }
-
-            //if (distanceToEnemy <= towerData.viewDistance && enemy.GetComponent<EnemyStats>().Taunt == true)
-            //{
-            //    shortestDistance = distanceToEnemy;
-            //    nearestEnemy = enemy;
-            //    towerTaunted = true;
-            //}
-
         }
-       
-
-        
 
         if (nearestEnemy != null && shortestDistance <= towerData.viewDistance)
         {
@@ -84,7 +82,7 @@ public abstract class TowerScript : MonoBehaviour
     private void OnMouseEnter()
     {
         shootRadiusDisplay.Draw(towerData.viewDistance);
-        BuildManager.Instance.ShowStatsDisplay(towerData);
+        BuildManager.Instance.ShowTowerStatsDisplay(towerData);
     }
 
     private void OnMouseExit()
@@ -93,6 +91,7 @@ public abstract class TowerScript : MonoBehaviour
         BuildManager.Instance.HideStatsDisplay();
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         if(towerData != null)
@@ -101,4 +100,5 @@ public abstract class TowerScript : MonoBehaviour
             Gizmos.DrawWireSphere(transform.position, towerData.viewDistance);
         }
     }
+#endif
 }

@@ -15,6 +15,7 @@ MonoBehaviour:
   WalkSpeed: 0
   ItemPrefab: {fileID: 2854375153941109592, guid: 8c35b5f83811cf145bac7b5476958fbd,
     type: 3}
+  description: spawns a meteor on a random tile around
   PreviewPrefab: {fileID: 2854375153941109592, guid: 70a5b1a188da60c4ca47d926d667b93e,
     type: 3}
   PreviewPrefabBad: {fileID: 2854375153941109592, guid: 77ef3f4b4c9d1e44d925952c8e75ca4d,

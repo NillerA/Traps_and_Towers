@@ -15,6 +15,7 @@ MonoBehaviour:
   WalkSpeed: 0
   ItemPrefab: {fileID: 1634718483713813621, guid: c4700f19164c2334c8f8bc0b8cfa8c80,
     type: 3}
+  description: a standard archer tower
   PreviewPrefab: {fileID: 1634718483713813621, guid: 23cd6e3d98987ed4396dc5fec1c81ef2,
     type: 3}
   PreviewPrefabBad: {fileID: 1634718483713813621, guid: bde85dd102c1de64ca950724bd75e25d,

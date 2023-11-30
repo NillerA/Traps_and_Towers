@@ -57,6 +57,7 @@ public class WaveManager : MonoBehaviour
         }
         currentSpawn = Random.Range(0,SpawnPoints.Count);
         UpdatePath();
+        wavesLeftText.text = "Waves left: " + (Waves.Count - currentWave);
     }
 
     public void StartWave()
@@ -93,6 +94,7 @@ public class WaveManager : MonoBehaviour
                     spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(currentPath, Waves[currentWave].waveStatsList[i].enemyType);
                     activeEnemies.Add(spawnedEnemy);
                     spawnedEnemy.SetActive(true);
+                    spawnedEnemy.GetComponent<EnemyMovement>().StartEnemy();
                 }
             }
             if(enemysToSpawn <= spawnedEnemiesAmount)
@@ -182,15 +184,4 @@ public class WaveManager : MonoBehaviour
             pathLineRend.SetPosition(i, currentPath[i] + new Vector3(0, 0.15f, 0));
         return true;
     }
-}
-
-public class enemySpawner
-{
-    public enemySpawner()
-    {
-
-    }
-
-   
-
 }
