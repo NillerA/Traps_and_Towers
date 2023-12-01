@@ -63,8 +63,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        BuildManager.Instance.CanPlaceTurrets();
         healthText.text = health.ToString();
+    }
+
+    public void TutorialDone()
+    {
+        BuildManager.Instance.CanPlaceTurrets();
     }
 
     bool lost;//midlertidlig
