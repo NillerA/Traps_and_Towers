@@ -16636,7 +16636,13 @@ MonoBehaviour:
     u can see how many waves that is left in the buttom left corner (includes
     current wave).
 
-    have fun and enjoy'
+    there will be 3 tower choices at the bottom of the screen
+    u can drag and drop.
+
+    u can only place one each wave so be careful.
+
+    have
+    fun and enjoy'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
