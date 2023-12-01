@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveStatsList:
   - enemyType: {fileID: 11400000, guid: ab4dfa49a56e2bb4eb5a1c16ec66355e, type: 2}
-    spawnAmount: 5
+    spawnAmount: 3
     SpawnRate: 1
