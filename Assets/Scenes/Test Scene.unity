@@ -20286,7 +20286,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2044371826}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d32a17958937f34b9ec19456c3fb4a5, type: 3}
+  m_Script: {fileID: 11500000, guid: b7fbc8d72cd8a224cba01a9b9b92f2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Shop: {fileID: 1196812723}
@@ -20306,12 +20306,12 @@ MonoBehaviour:
     m_Name: Mouse Down
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: d45d00ce-44c0-41ef-be95-7cae9f20cd29
+    m_Id: 6527e769-b1ac-467f-8a77-075679dcddb6
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 56ffe9e0-9a26-47e6-83e0-82a612ab034c
+      m_Id: d8909369-8ad3-4de7-9b97-c59f3d02a7d1
       m_Path: <Mouse>/leftButton
       m_Interactions: 
       m_Processors: 
