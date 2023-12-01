@@ -146,8 +146,6 @@ public class BuildManager : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("yeee");
-
         while (isDown)
         {
             Vector2 mousePos = Input.mousePosition;//gets the mouse position
