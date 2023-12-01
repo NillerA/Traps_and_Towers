@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   description: is a archer tower but better and explodes after two rounds (takes
     stuff close to it whith it down)
-  PreviewPrefab: {fileID: 1634718483713813621, guid: 23cd6e3d98987ed4396dc5fec1c81ef2,
+  PreviewPrefab: {fileID: 1634718483713813621, guid: ffde0dc8244a1cf4c9ce71bbabf62c8a,
     type: 3}
   PreviewPrefabBad: {fileID: 1634718483713813621, guid: 6c7334e6740489a44a963173b916d3ea,
     type: 3}

@@ -5,23 +5,23 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
 
-    [SerializeField]
-    private GameObject ShopUI;
+    //[SerializeField]
+    //private GameObject ShopUI;
 
-    public void PurchaseTower(TowerItem item)
-    {
-        BuildManager.Instance.item = item;
-        BuildManager.Instance.StartDrag();
-    }
+    //public void PurchaseTower(TowerItem item)
+    //{
+    //    BuildManager.Instance.item = item;
+    //    BuildManager.Instance.StartDrag();
+    //}
 
-    public void CanPlaceTurret()
-    {
-        ShopUI.SetActive(true);
-    }
+    //public void CanPlaceTurret()
+    //{
+    //    ShopUI.SetActive(true);
+    //}
 
-    public void OnPlaceSucces()
-    {
-        ShopUI.SetActive(false);
-        GameManager.Instance.TowerPlaced();
-    }
+    //public void OnPlaceSucces()
+    //{
+    //    ShopUI.SetActive(false);
+    //    GameManager.Instance.TowerPlaced();
+    //}
 }

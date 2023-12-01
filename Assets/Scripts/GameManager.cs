@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public GridTileItem Base, forest, monsterCave, swamp;
     [SerializeField]
-    private Shop towerPlacementManager;
-    [SerializeField]
     TextMeshProUGUI healthText;
 
     [HideInInspector]
@@ -65,7 +63,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        towerPlacementManager.CanPlaceTurret();
+        BuildManager.Instance.CanPlaceTurrets();
         healthText.text = health.ToString();
     }
 
@@ -77,11 +75,11 @@ public class GameManager : MonoBehaviour
     {
         if (allWavesDone)
         {
-            if(!lost)
+            if (!lost)
                 fastWin.SetActive(true);
         }
         else
-            towerPlacementManager.CanPlaceTurret();
+            BuildManager.Instance.CanPlaceTurrets();
     }
 
     public void TowerPlaced()
