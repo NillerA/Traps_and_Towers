@@ -76,7 +76,7 @@ public class EnemyMovement : MonoBehaviour
         else if (enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>())
             enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material.color = Color.red;
         else
-            enemyVisual.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material.color = Color.red;
+            enemyVisual.transform.GetChild(0).GetChild(1).GetComponent<SkinnedMeshRenderer>().material.color = Color.red;
 
         yield return new WaitForSeconds(0.25f);
         if(enemyVisual != null)
@@ -86,7 +86,7 @@ public class EnemyMovement : MonoBehaviour
             else if (enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>())
                 enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material.color = basicColor;
             else
-                enemyVisual.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material.color = basicColor;
+                enemyVisual.transform.GetChild(0).GetChild(1).GetComponent<SkinnedMeshRenderer>().material.color = basicColor;
         }
     }
 
@@ -134,7 +134,7 @@ public class EnemyMovement : MonoBehaviour
         else if (enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>())
             basicColor = enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material.color;
         else
-            basicColor = enemyVisual.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material.color;
+            basicColor = enemyVisual.transform.GetChild(0).GetChild(1).GetComponent<SkinnedMeshRenderer>().material.color;
     }
 
     public void StartEnemy()
