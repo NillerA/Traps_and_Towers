@@ -22,6 +22,7 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 direction;
     GameObject enemyVisual;
     Coroutine walking;
+    Color basicColor;
 
     IEnumerator PathMovement()
     {
@@ -64,7 +65,29 @@ public class EnemyMovement : MonoBehaviour
             StopCoroutine(walking);
             return true;
         }
+        StartCoroutine(DamageIndication());
         return false;
+    }
+
+    private IEnumerator DamageIndication()
+    {
+        if (enemyVisual.transform.GetChild(0).GetComponent<MeshRenderer>())
+            enemyVisual.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Color.red;
+        else if (enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>())
+            enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material.color = Color.red;
+        else
+            enemyVisual.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material.color = Color.red;
+
+        yield return new WaitForSeconds(0.25f);
+        if(enemyVisual != null)
+        {
+            if (enemyVisual.transform.GetChild(0).GetComponent<MeshRenderer>())
+                enemyVisual.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = basicColor;
+            else if (enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>())
+                enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material.color = basicColor;
+            else
+                enemyVisual.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material.color = basicColor;
+        }
     }
 
     public void SpawnEnemyOnDeath(EnemyStats newStats)
@@ -106,6 +129,12 @@ public class EnemyMovement : MonoBehaviour
         if (enemyVisual != null)
             Destroy(enemyVisual);
         enemyVisual = Instantiate(stats.enemyvisualPrefab, transform.position, transform.rotation, transform);
+        if (enemyVisual.transform.GetChild(0).GetComponent<MeshRenderer>())
+            basicColor =enemyVisual.transform.GetChild(0).GetComponent<MeshRenderer>().material.color;
+        else if (enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>())
+            basicColor = enemyVisual.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material.color;
+        else
+            basicColor = enemyVisual.transform.GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material.color;
     }
 
     public void StartEnemy()
