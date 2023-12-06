@@ -70,11 +70,13 @@ public abstract class TowerScript : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(towerData.attackSpeed);
             if (UpdateTarget())
             {
                 towerAttack.Attack(transform, target, towerData.damage);
+                yield return new WaitForSeconds(towerData.attackSpeed);
             }
+            else
+                yield return null;
         }
     }
 

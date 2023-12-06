@@ -159,7 +159,7 @@ public class WaveManager : MonoBehaviour
 
     public void UpdatePath()
     {
-        currentPath = aStar.GetPath(SpawnPoints[currentSpawn], new Point(4, 4));
+        currentPath = aStar.GetPath(SpawnPoints[currentSpawn], new Point(GameManager.Instance.baseTile.AStarInfo.xCord, GameManager.Instance.baseTile.AStarInfo.yCord));
         pathLineRend.positionCount = currentPath.Count;
         for (int i = 0; i < currentPath.Count; i++)
             pathLineRend.SetPosition(i, currentPath[i] + new Vector3(0,0.15f,0));
@@ -171,11 +171,11 @@ public class WaveManager : MonoBehaviour
         {
             if (i == currentSpawn)
                 continue;
-            List<Vector3> testPath = aStar.GetPath(SpawnPoints[i], new Point(4, 4), tileToIgnore);
+            List<Vector3> testPath = aStar.GetPath(SpawnPoints[i], new Point(GameManager.Instance.baseTile.AStarInfo.xCord, GameManager.Instance.baseTile.AStarInfo.yCord), tileToIgnore);
             if (testPath == null)
                 return false;
         }
-        currentPath = aStar.GetPath(SpawnPoints[currentSpawn], new Point(4, 4),tileToIgnore);
+        currentPath = aStar.GetPath(SpawnPoints[currentSpawn], new Point(GameManager.Instance.baseTile.AStarInfo.xCord, GameManager.Instance.baseTile.AStarInfo.yCord), tileToIgnore);
         if (currentPath == null)
             return false;
         pathLineRend.positionCount = currentPath.Count;

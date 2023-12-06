@@ -79,7 +79,7 @@ public class EnemyMovement : MonoBehaviour
         for (int i = 0; i < stats.EnemySpawnAmount; i++)
         {
             GameObject spawnedEnemy = WaveManager.Instance.GetEnemy();
-            spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(AStarBackup.instance.GetPath(GridManager.Instance.WorldToGridPoint(SpawnPositions[Random.Range(0, SpawnPositions.Count)]), new Point(4,4)), newStats);
+            spawnedEnemy.GetComponent<EnemyMovement>().setUpEnemy(AStarBackup.instance.GetPath(GridManager.Instance.WorldToGridPoint(SpawnPositions[Random.Range(0, SpawnPositions.Count)]), new Point(GameManager.Instance.baseTile.AStarInfo.xCord, GameManager.Instance.baseTile.AStarInfo.yCord)), newStats);
             WaveManager.Instance.activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.SetActive(true);
             spawnedEnemy.GetComponent<EnemyMovement>().StartEnemy();

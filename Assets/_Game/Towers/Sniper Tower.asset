@@ -16,4 +16,4 @@ MonoBehaviour:
   attackSpeed: 4
   viewDistance: 7
   attackType: Single
-  description: if we had sniper this would be it
+  description: Can see most of the map and have high damage. It's slow at shooting.

@@ -6,12 +6,16 @@ public class MeteorTower : TowerScript
 {
 
     private List<Vector3> GridTiles;
-    
+
+    public void Awake()
+    {
+        CheckNeighbours();
+    }
+
     public override void Start()
     {
         towerAttack = new MeteorAttack();
-        (int x, int y) = GridManager.Instance.WorldToGrid(transform.position);
-        GridTiles = GridManager.Instance.GetTilesInRadius(new Point(x,y), 1);
+        BuildManager.Instance.OnTowerPlaced.AddListener(CheckNeighbours);
         base.Start();
     }
 
@@ -19,8 +23,10 @@ public class MeteorTower : TowerScript
     {
         while (true)
         {
-            yield return new WaitForSeconds(towerData.attackSpeed);
-            RandomTilePlacement();
+            if(RandomTilePlacement())
+                yield return new WaitForSeconds(towerData.attackSpeed);
+            else
+                yield return null;
         }
     }
 
@@ -34,6 +40,22 @@ public class MeteorTower : TowerScript
 
             towerAttack.Attack(GridTiles[tileToAttck] + Vector3.up * 10, GridTiles[tileToAttck], towerData.damage);
             return true;
+        }
+    }
+
+    public void CheckNeighbours()
+    {
+        (int x, int y) = GridManager.Instance.WorldToGrid(transform.position);
+        GridTiles = GridManager.Instance.GetTilesInRadius(new Point(x, y), 1);
+        for (int i = 0; i < GridTiles.Count; i++)
+        {
+            Vector3 tile = GridTiles[i];
+            (x, y) = GridManager.Instance.WorldToGrid(tile);
+            if (!GridManager.Instance.IsWalkable(new Point(x, y)))
+            {
+                GridTiles.Remove(tile);
+                i--;
+            }
         }
     }
 }

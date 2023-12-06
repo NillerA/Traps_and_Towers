@@ -16,5 +16,5 @@ MonoBehaviour:
   attackSpeed: 1
   viewDistance: 2
   attackType: Single
-  description: is a archer tower but better and explodes after two rounds (takes
-    stuff close to it whith it down)
+  description: Is a archer tower with higer damage. It will explode after 5 waves
+    and take everyting with it in a one tile radius

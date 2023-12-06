@@ -326,24 +326,24 @@ public class GridManager : MonoBehaviour, ISerializationCallbackReceiver
     public void OnAfterDeserialize()
     {
         visualTiles = new GameObject[serializedXAmount, serializedTiles.Count() / serializedXAmount];
-        for (int x = 0; x < visualTiles.GetLength(0); ++x)
+        for (int x = 0; x < visualTiles.GetLength(0); x++)
         {
             for (int y = 0; y < visualTiles.GetLength(1); y++)
             {
-                visualTiles[x, y] = serializedTiles[x * visualTiles.GetLength(0) + y];
+                visualTiles[x, y] = serializedTiles[x * visualTiles.GetLength(1) + y];
             }
         }
     }
 
     public void OnBeforeSerialize()
     {
-        serializedTiles = new GameObject[visualTiles.Length];
+        serializedTiles = new GameObject[visualTiles.GetLength(0) * visualTiles.GetLength(1)];
         serializedXAmount = visualTiles.GetLength(0);
-        for (int x = 0; x < visualTiles.GetLength(0); ++x)
+        for (int x = 0; x < visualTiles.GetLength(0); x++)
         {
             for (int y = 0; y < visualTiles.GetLength(1); y++)
             {
-                serializedTiles[x * visualTiles.GetLength(0) + y] = visualTiles[x, y];
+                serializedTiles[(x * visualTiles.GetLength(1)) + y] = visualTiles[x, y];
             }
         }
     }

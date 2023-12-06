@@ -16,4 +16,4 @@ MonoBehaviour:
   attackSpeed: 1
   viewDistance: 2
   attackType: Single
-  description: a standard archer tower
+  description: A tower that shoots arrows

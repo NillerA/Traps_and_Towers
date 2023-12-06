@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9014848422953623058}
   - component: {fileID: 234685421315414158}
-  - component: {fileID: 7588364124331315089}
+  - component: {fileID: -1996073164768638682}
   m_Layer: 0
   m_Name: MeteorTower
   m_TagString: Untagged
@@ -50,7 +50,7 @@ MonoBehaviour:
   target: {fileID: 0}
   towerData: {fileID: 11400000, guid: 6e7f1b0cc5fc7ca4fbeb91f641b30aed, type: 2}
   shootRadiusDisplay: {fileID: 1072619636024574741}
---- !u!65 &7588364124331315089
+--- !u!65 &-1996073164768638682
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -69,8 +69,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 1, z: 0.5}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &8209642347504084332
 GameObject:
   m_ObjectHideFlags: 0
@@ -82,7 +82,6 @@ GameObject:
   - component: {fileID: 1531638825942351886}
   - component: {fileID: 3857142920014387093}
   - component: {fileID: 2686990684114358941}
-  - component: {fileID: 8573641546511168186}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -155,27 +154,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8573641546511168186
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8209642347504084332}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4189913547508643352
 PrefabInstance:
   m_ObjectHideFlags: 0

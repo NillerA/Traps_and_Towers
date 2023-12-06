@@ -16,4 +16,4 @@ MonoBehaviour:
   attackSpeed: 4
   viewDistance: 1.5
   attackType: Area
-  description: spawns a meteor on a random tile around
+  description: Spawns a meteor on a random tile in a radius around it

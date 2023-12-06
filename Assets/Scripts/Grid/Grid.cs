@@ -23,7 +23,7 @@ public class Grid : ISerializationCallbackReceiver
         {
             for (int y = 0; y < Tiles.GetLength(1); y++)
             {
-                Tiles[x, y] = serializedTiles[x * Tiles.GetLength(0) + y];
+                Tiles[x, y] = serializedTiles[x * Tiles.GetLength(1) + y];
             }
         }
     }
@@ -36,7 +36,7 @@ public class Grid : ISerializationCallbackReceiver
         {
             for (int y = 0; y < Tiles.GetLength(1); y++)
             {
-                serializedTiles[x * Tiles.GetLength(0) + y] = Tiles[x, y];
+                serializedTiles[x * Tiles.GetLength(1) + y] = Tiles[x, y];
             }
         }
     }

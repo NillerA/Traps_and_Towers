@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     private Slider healthBar;
     public UnityEvent OnDmageTaken;
 
+    [SerializeField]
+    bool topToButtom;
+
     GameManager() 
     {
         Instance = this;
@@ -31,39 +34,61 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         OnDmageTaken = new UnityEvent();
-        if (GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() / 2 - 1, Base))
+        if (topToButtom)
         {
-            baseTile = GridManager.Instance.GetGridTile(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() / 2 - 1);
-            healthBar = GridManager.Instance.GetVisualTile(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() / 2 - 1).transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Slider>();
+            if (GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() / 2 - 1, 0, Base))
+            {
+                baseTile = GridManager.Instance.GetGridTile(GridManager.Instance.GetXGridSize() / 2 - 1, 0);
+                healthBar = GridManager.Instance.GetVisualTile(GridManager.Instance.GetXGridSize() / 2 - 1, 0).transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Slider>();
+            }
+            else
+                Debug.LogError("Could not place base on grid");
+            GridManager.Instance.PlaceTileItem(0, GridManager.Instance.GetYGridSize() - 1, monsterCave);
+            GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() - 1, monsterCave);
+            GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() - 1, GridManager.Instance.GetYGridSize() - 1, monsterCave);
+            WaveManager.Instance.SpawnPoints = new List<Point>
+            {
+                new Point(0,GridManager.Instance.GetYGridSize() - 1),
+                new Point(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() - 1),
+                new Point(GridManager.Instance.GetXGridSize() - 1,GridManager.Instance.GetYGridSize() - 1)
+            };
         }
         else
-            Debug.LogWarning("Could not place base on grid");
-        GridManager.Instance.PlaceTileItem(0, 0, monsterCave);
-        GridManager.Instance.PlaceTileItem(0, GridManager.Instance.GetYGridSize() - 1, monsterCave);
-        GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() - 1, 0, monsterCave);
-        GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() - 1, GridManager.Instance.GetYGridSize() - 1, monsterCave);
-        WaveManager.Instance.SpawnPoints = new List<Point>
         {
-            new Point(0,0),
-            new Point(0,GridManager.Instance.GetYGridSize() - 1),
-            new Point(GridManager.Instance.GetXGridSize() - 1,0),
-            new Point(GridManager.Instance.GetXGridSize() - 1,GridManager.Instance.GetYGridSize() - 1)
-        };
-        for (int i = 0; i < 5;)
+            if (GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() / 2 - 1, Base))
+            {
+                baseTile = GridManager.Instance.GetGridTile(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() / 2 - 1);
+                healthBar = GridManager.Instance.GetVisualTile(GridManager.Instance.GetXGridSize() / 2 - 1, GridManager.Instance.GetYGridSize() / 2 - 1).transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Slider>();
+            }
+            else
+                Debug.LogError("Could not place base on grid");
+            GridManager.Instance.PlaceTileItem(0, 0, monsterCave);
+            GridManager.Instance.PlaceTileItem(0, GridManager.Instance.GetYGridSize() - 1, monsterCave);
+            GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() - 1, 0, monsterCave);
+            GridManager.Instance.PlaceTileItem(GridManager.Instance.GetXGridSize() - 1, GridManager.Instance.GetYGridSize() - 1, monsterCave);
+            WaveManager.Instance.SpawnPoints = new List<Point>
+            {
+                new Point(0,0),
+                new Point(0,GridManager.Instance.GetYGridSize() - 1),
+                new Point(GridManager.Instance.GetXGridSize() - 1,0),
+                new Point(GridManager.Instance.GetXGridSize() - 1,GridManager.Instance.GetYGridSize() - 1)
+            };
+        }
+        for (int i = 0; i < 10;)
         {
-            if (GridManager.Instance.PlaceTileItem(Random.Range(1, GridManager.Instance.GetXGridSize() - 1), Random.Range(1, GridManager.Instance.GetYGridSize() - 1), forest))
+            if (GridManager.Instance.PlaceTileItem(Random.Range(0, GridManager.Instance.GetXGridSize() - 1), Random.Range(0, GridManager.Instance.GetYGridSize() - 1), forest))
                 i++;
         }
         for (int i = 0; i < 5;)
         {
-            if (GridManager.Instance.PlaceTileItem(Random.Range(1, GridManager.Instance.GetXGridSize() - 1), Random.Range(1, GridManager.Instance.GetYGridSize() - 1), swamp))
+            if (GridManager.Instance.PlaceTileItem(Random.Range(0, GridManager.Instance.GetXGridSize()), Random.Range(0, GridManager.Instance.GetYGridSize()), swamp))
                 i++;
         }
     }
 
     private void Start()
     {
-        healthText.text = health.ToString();
+        healthText.text = "base health: " + health.ToString();
     }
 
     public void TutorialDone()
@@ -94,7 +119,7 @@ public class GameManager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        healthText.text = health.ToString();
+        healthText.text = "base health: " + health.ToString();
         healthBar.value = health;
         OnDmageTaken.Invoke();
         if (health <= 0)

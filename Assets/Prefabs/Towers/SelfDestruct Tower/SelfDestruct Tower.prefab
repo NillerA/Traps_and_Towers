@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c525d35bbe2f844f9260dce51d7f088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LifespanInWaves: 2
+  LifespanInWaves: 5
 --- !u!1 &5667937017053893369
 GameObject:
   m_ObjectHideFlags: 0

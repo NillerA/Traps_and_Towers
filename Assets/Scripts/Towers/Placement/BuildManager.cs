@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class BuildManager : MonoBehaviour
@@ -37,6 +38,8 @@ public class BuildManager : MonoBehaviour
     [SerializeField]
     List<TowerItem> towerDeck;
     List<TowerItem> NotUsedFromDeck = new List<TowerItem>();
+
+    public UnityEvent OnTowerPlaced;
 
     BuildManager() 
     {
@@ -199,6 +202,7 @@ public class BuildManager : MonoBehaviour
         {
             if (GridManager.Instance.PlaceTileItem(gridX, gridY, item))
             {
+                OnTowerPlaced.Invoke();
                 tower1.SetActive(false);
                 tower2.SetActive(false);
                 tower3.SetActive(false);
